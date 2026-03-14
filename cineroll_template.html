@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,400 +7,401 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* ─── RESET & VARS ─────────────────────────────────────────────── */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#09090b; --bg2:#111115; --bg3:#18181d; --bg4:#1f1f26;
-  --border:rgba(255,255,255,.07); --border2:rgba(255,255,255,.13);
-  --text:#f0f0f2; --muted:#5a5a6a; --muted2:#9090a8;
-  --accent:#e63946; --accent2:#ff6b6b;
-  --gold:#f4a535; --green:#22c55e; --imdb:#f5c518;
+/* ── Reset & CSS variables ────────────────────────────────────── */
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:      #09090b;
+  --bg2:     #111115;
+  --bg3:     #18181d;
+  --border:  rgba(255,255,255,.07);
+  --border2: rgba(255,255,255,.13);
+  --text:    #f0f0f2;
+  --muted:   #5a5a6a;
+  --muted2:  #9090a8;
+  --accent:  #e63946;
+  --gold:    #f4a535;
+  --green:   #22c55e;
+  --imdb:    #f5c518;
 }
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-height:100vh;overflow-x:hidden}
-body::before{
-  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  min-height: 100vh; overflow-x: hidden;
+}
+/* subtle dot grid background */
+body::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
   background-image:
-    linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
-  background-size:64px 64px;
+    linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+  background-size: 64px 64px;
 }
 
-/* ─── NAV ──────────────────────────────────────────────────────── */
-nav{
-  position:sticky;top:0;z-index:300;height:60px;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 2.5rem;
-  background:rgba(9,9,11,.88);backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);
+/* ── Navbar ───────────────────────────────────────────────────── */
+nav {
+  position: sticky; top: 0; z-index: 300; height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2.5rem;
+  background: rgba(9,9,11,.9); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
 }
-.logo{font-size:1.25rem;font-weight:800;letter-spacing:-.03em;cursor:pointer;user-select:none}
-.logo em{color:var(--accent);font-style:normal}
-.nav-center{display:flex;gap:4px}
-.nav-btn{
-  padding:6px 16px;background:transparent;
-  border:1px solid transparent;border-radius:8px;
-  color:var(--muted2);font-family:'Outfit',sans-serif;
-  font-size:14px;font-weight:500;cursor:pointer;
-  transition:all .18s;position:relative;
+.logo { font-size: 1.25rem; font-weight: 800; letter-spacing: -.03em; cursor: pointer; user-select: none; }
+.logo em { color: var(--accent); font-style: normal; }
+.nav-links { display: flex; gap: 4px; }
+.nav-btn {
+  padding: 6px 16px; background: transparent;
+  border: 1px solid transparent; border-radius: 8px;
+  color: var(--muted2); font-family: 'Outfit', sans-serif;
+  font-size: 14px; font-weight: 500; cursor: pointer; transition: all .18s;
 }
-.nav-btn:hover{color:var(--text);background:var(--bg3)}
-.nav-btn.active{color:var(--text);background:var(--bg3);border-color:var(--border2)}
-.nav-right{display:flex;align-items:center;gap:8px}
-.wl-badge{
-  display:none;align-items:center;justify-content:center;
-  min-width:18px;height:18px;padding:0 5px;
-  background:var(--accent);color:#fff;
-  font-size:10px;font-weight:700;border-radius:9px;margin-left:4px;
+.nav-btn:hover  { color: var(--text); background: var(--bg3); }
+.nav-btn.active { color: var(--text); background: var(--bg3); border-color: var(--border2); }
+/* watchlist counter badge */
+.wl-badge {
+  display: none; align-items: center; justify-content: center;
+  min-width: 18px; height: 18px; padding: 0 5px; margin-left: 4px;
+  background: var(--accent); color: #fff;
+  font-size: 10px; font-weight: 700; border-radius: 9px;
 }
-.lang-toggle{
-  display:flex;background:var(--bg3);
-  border:1px solid var(--border2);border-radius:8px;overflow:hidden;
+/* RU / EN toggle */
+.lang-toggle {
+  display: flex; background: var(--bg3);
+  border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; margin-left: 8px;
 }
-.lang-btn{
-  padding:5px 12px;background:transparent;border:none;
-  color:var(--muted);font-family:'JetBrains Mono',monospace;
-  font-size:12px;font-weight:500;letter-spacing:.05em;cursor:pointer;transition:all .15s;
+.lang-btn {
+  padding: 5px 12px; background: transparent; border: none;
+  color: var(--muted); font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 500; letter-spacing: .05em; cursor: pointer; transition: all .15s;
 }
-.lang-btn.on{background:var(--accent);color:#fff}
-.lang-btn:not(.on):hover{color:var(--text)}
+.lang-btn.on  { background: var(--accent); color: #fff; }
+.lang-btn:not(.on):hover { color: var(--text); }
 
-/* ─── PAGES ────────────────────────────────────────────────────── */
-.page{display:none;position:relative;z-index:1}
-.page.active{display:block}
+/* ── Page visibility ──────────────────────────────────────────── */
+.page { display: none; position: relative; z-index: 1; }
+.page.active { display: block; }
 
-/* ─── HOME ─────────────────────────────────────────────────────── */
-.hero{
-  max-width:800px;margin:0 auto;
-  padding:5.5rem 2rem 3rem;text-align:center;
+/* ── Hero (Home page) ─────────────────────────────────────────── */
+.hero { max-width: 800px; margin: 0 auto; padding: 5.5rem 2rem 3rem; text-align: center; }
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 5px 16px; border-radius: 20px;
+  background: rgba(230,57,70,.08); border: 1px solid rgba(230,57,70,.22);
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: var(--accent); letter-spacing: .1em; text-transform: uppercase;
+  margin-bottom: 1.6rem;
 }
-.hero-tag{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:5px 16px;border-radius:20px;
-  background:rgba(230,57,70,.08);border:1px solid rgba(230,57,70,.22);
-  font-family:'JetBrains Mono',monospace;font-size:11px;
-  color:var(--accent);letter-spacing:.1em;text-transform:uppercase;
-  margin-bottom:1.6rem;
+.hero-tag::before { content: '●'; font-size: 8px; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .2; } }
+.hero-h {
+  font-size: clamp(2.6rem, 5.5vw, 4.2rem); font-weight: 800;
+  line-height: 1.06; letter-spacing: -.04em; margin-bottom: 1rem;
 }
-.hero-tag::before{content:'●';font-size:8px;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.2}}
-.hero-h{
-  font-size:clamp(2.6rem,5.5vw,4.2rem);font-weight:800;
-  line-height:1.06;letter-spacing:-.04em;margin-bottom:1rem;
-}
-.hero-h .ghost{-webkit-text-stroke:1.5px var(--accent);color:transparent}
-.hero-sub{font-size:1rem;color:var(--muted2);line-height:1.75;max-width:460px;margin:0 auto 2.5rem}
+/* outlined accent text in heading */
+.hero-h .ghost { -webkit-text-stroke: 1.5px var(--accent); color: transparent; }
+.hero-sub { font-size: 1rem; color: var(--muted2); line-height: 1.75; max-width: 460px; margin: 0 auto 2.5rem; }
 
-/* ─── FILTERS ──────────────────────────────────────────────────── */
-.filters{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:2rem}
-.fw{display:flex;flex-direction:column;gap:5px}
-.flabel{
-  font-family:'JetBrains Mono',monospace;font-size:10px;
-  letter-spacing:.13em;text-transform:uppercase;color:var(--muted);padding-left:4px;
+/* ── Filters row ──────────────────────────────────────────────── */
+.filters { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; }
+.fw { display: flex; flex-direction: column; gap: 5px; }
+.flabel {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: .13em; text-transform: uppercase; color: var(--muted); padding-left: 4px;
 }
-select{
-  appearance:none;min-width:155px;
-  padding:9px 36px 9px 14px;
-  background:var(--bg3) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235a5a6a' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center;
-  border:1px solid var(--border2);border-radius:10px;
-  color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;
-  cursor:pointer;transition:border-color .2s;
+select {
+  appearance: none; min-width: 155px;
+  padding: 9px 36px 9px 14px;
+  background: var(--bg3) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235a5a6a' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center;
+  border: 1px solid var(--border2); border-radius: 10px;
+  color: var(--text); font-family: 'Outfit', sans-serif; font-size: 14px;
+  cursor: pointer; transition: border-color .2s;
 }
-select:focus{outline:none;border-color:var(--accent)}
-select option{background:#1a1a1f}
+select:focus { outline: none; border-color: var(--accent); }
+select option { background: #1a1a1f; }
 
-/* ─── ROLL BTN ─────────────────────────────────────────────────── */
-.roll-btn{
-  display:inline-flex;align-items:center;gap:10px;
-  padding:14px 44px;border:none;border-radius:50px;
-  background:linear-gradient(135deg,#e63946,#ff6b6b);
-  color:#fff;font-family:'Outfit',sans-serif;
-  font-size:1.05rem;font-weight:700;cursor:pointer;
-  box-shadow:0 4px 24px rgba(230,57,70,.32);
-  transition:transform .15s,box-shadow .2s,filter .15s;
-  margin-bottom:3rem;
+/* ── Random roll button ───────────────────────────────────────── */
+.roll-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 44px; border: none; border-radius: 50px;
+  background: linear-gradient(135deg, #e63946, #ff6b6b);
+  color: #fff; font-family: 'Outfit', sans-serif;
+  font-size: 1.05rem; font-weight: 700; cursor: pointer;
+  box-shadow: 0 4px 24px rgba(230,57,70,.32);
+  transition: transform .15s, box-shadow .2s, filter .15s;
+  margin-bottom: 3rem;
 }
-.roll-btn:hover{transform:translateY(-3px);box-shadow:0 10px 36px rgba(230,57,70,.46);filter:brightness(1.08)}
-.roll-btn:active{transform:scale(.97)}
-.dice{font-size:20px}
-.roll-btn.spin .dice{animation:spinDice .5s ease}
-@keyframes spinDice{
-  0%{transform:rotate(0)scale(1)}
-  30%{transform:rotate(-25deg)scale(1.3)}
-  70%{transform:rotate(25deg)scale(1.3)}
-  100%{transform:rotate(0)scale(1)}
+.roll-btn:hover  { transform: translateY(-3px); box-shadow: 0 10px 36px rgba(230,57,70,.46); filter: brightness(1.08); }
+.roll-btn:active { transform: scale(.97); }
+.dice { font-size: 20px; }
+.roll-btn.spin .dice { animation: spinDice .5s ease; }
+@keyframes spinDice {
+  0%   { transform: rotate(0) scale(1); }
+  30%  { transform: rotate(-25deg) scale(1.3); }
+  70%  { transform: rotate(25deg) scale(1.3); }
+  100% { transform: rotate(0) scale(1); }
 }
 
-/* ─── MOVIE CARD ───────────────────────────────────────────────── */
-#result-area{min-height:10px}
-.card-in{animation:cardIn .4s cubic-bezier(.22,1,.36,1)}
-@keyframes cardIn{from{opacity:0;transform:translateY(24px)scale(.97)}to{opacity:1;transform:none}}
-.mcard{
-  display:flex;max-width:700px;margin:0 auto 4rem;
-  background:var(--bg2);border:1px solid var(--border2);
-  border-radius:20px;overflow:hidden;text-align:left;
-  transition:border-color .2s;
+/* ── Movie result card ────────────────────────────────────────── */
+#result-area { min-height: 10px; }
+.card-in { animation: cardIn .4s cubic-bezier(.22,1,.36,1); }
+@keyframes cardIn { from { opacity: 0; transform: translateY(24px) scale(.97); } to { opacity: 1; transform: none; } }
+.mcard {
+  display: flex; max-width: 700px; margin: 0 auto 4rem;
+  background: var(--bg2); border: 1px solid var(--border2);
+  border-radius: 20px; overflow: hidden; text-align: left; transition: border-color .2s;
 }
-.mcard:hover{border-color:rgba(230,57,70,.3)}
-.mcard-poster{
-  width:160px;min-height:240px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  font-size:64px;position:relative;overflow:hidden;
+.mcard:hover { border-color: rgba(230,57,70,.3); }
+.mcard-poster {
+  width: 160px; min-height: 240px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 64px; position: relative; overflow: hidden;
 }
-.mcard-poster::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(to right,transparent 50%,var(--bg2));
+/* fade poster into card body */
+.mcard-poster::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to right, transparent 50%, var(--bg2));
 }
-.mcard-body{padding:1.5rem 1.75rem;display:flex;flex-direction:column;flex:1}
-.genre-tag{
-  display:inline-block;font-size:11px;font-weight:600;
-  padding:3px 10px;border-radius:20px;
-  background:rgba(230,57,70,.1);border:1px solid rgba(230,57,70,.22);
-  color:var(--accent);letter-spacing:.05em;text-transform:uppercase;
-  margin-bottom:.75rem;
+.mcard-body { padding: 1.5rem 1.75rem; display: flex; flex-direction: column; flex: 1; }
+.genre-tag {
+  display: inline-block; font-size: 11px; font-weight: 600;
+  padding: 3px 10px; border-radius: 20px;
+  background: rgba(230,57,70,.1); border: 1px solid rgba(230,57,70,.22);
+  color: var(--accent); letter-spacing: .05em; text-transform: uppercase; margin-bottom: .75rem;
 }
-.mcard-title{font-size:1.45rem;font-weight:800;letter-spacing:-.02em;line-height:1.15;margin-bottom:.25rem}
-.mcard-year{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);margin-bottom:.9rem}
+.mcard-title { font-size: 1.45rem; font-weight: 800; letter-spacing: -.02em; line-height: 1.15; margin-bottom: .25rem; }
+/* small subtitle shown when RU title differs from EN */
+.mcard-title-sub { font-size: .85rem; color: var(--muted2); font-weight: 400; margin-bottom: .25rem; }
+.mcard-year { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); margin-bottom: .9rem; }
+/* IMDb rating chips */
+.chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1rem; align-items: center; }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 12px; border-radius: 8px;
+  border: 1px solid var(--border2); background: var(--bg3); font-size: 13px;
+}
+.chip-imdb .cl { color: var(--imdb); font-weight: 700; font-size: 13px; }
+.chip-imdb .cv { color: var(--imdb); font-family: 'JetBrains Mono', monospace; font-weight: 500; }
+.chip-votes { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); background: transparent; border: none; padding: 0; }
+.mcard-desc { font-size: 14px; line-height: 1.75; color: var(--muted2); flex: 1; margin-bottom: 1.25rem; }
+.mcard-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
-/* ratings chips */
-.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem;align-items:center}
-.chip{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:5px 12px;border-radius:8px;
-  border:1px solid var(--border2);background:var(--bg3);
-  font-size:13px;
+/* action buttons */
+.btn-save {
+  flex: 1; min-width: 110px; padding: 10px 18px;
+  background: linear-gradient(135deg, #e63946, #ff6b6b);
+  border: none; border-radius: 10px; color: #fff;
+  font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: filter .15s, transform .1s;
 }
-.chip-imdb .cl{color:var(--imdb);font-weight:700;font-size:13px}
-.chip-imdb .cv{color:var(--imdb);font-family:'JetBrains Mono',monospace;font-weight:500}
-.chip-votes{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);
-  background:transparent;border:none;padding:0}
-.chip-rt .cl{color:#fa320a;font-weight:700}
-.chip-rt .cv{color:#fa320a;font-family:'JetBrains Mono',monospace;font-weight:500}
+.btn-save:hover  { filter: brightness(1.1); }
+.btn-save:active { transform: scale(.97); }
+.btn-save.saved  { background: rgba(34,197,94,.1); border: 1px solid rgba(34,197,94,.25); color: var(--green); }
+.btn-link {
+  padding: 10px 15px; border-radius: 10px;
+  font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 5px;
+  cursor: pointer; transition: all .15s; white-space: nowrap;
+}
+.bl-rezka { background: rgba(230,57,70,.08); border: 1px solid rgba(230,57,70,.25); color: var(--accent); }
+.bl-rezka:hover { background: rgba(230,57,70,.18); }
+.bl-imdb  { background: rgba(245,197,24,.08); border: 1px solid rgba(245,197,24,.25); color: var(--imdb); }
+.bl-imdb:hover  { background: rgba(245,197,24,.18); }
+.btn-again {
+  padding: 10px 15px; background: transparent; border: 1px solid var(--border2);
+  border-radius: 10px; color: var(--muted2); font-family: 'Outfit', sans-serif;
+  font-size: 13px; font-weight: 500; cursor: pointer; transition: all .15s; white-space: nowrap;
+}
+.btn-again:hover { color: var(--text); background: var(--bg3); }
 
-.mcard-desc{font-size:14px;line-height:1.75;color:var(--muted2);flex:1;margin-bottom:1.25rem}
-.mcard-actions{display:flex;gap:8px;flex-wrap:wrap}
+/* ── Shared section wrapper ───────────────────────────────────── */
+.sec { max-width: 1160px; margin: 0 auto; padding: 2.5rem 2rem 5rem; }
+.sec-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+.sec-title { font-size: 1.5rem; font-weight: 800; letter-spacing: -.03em; }
+.pill {
+  padding: 4px 13px; background: var(--bg3);
+  border: 1px solid var(--border2); border-radius: 20px; font-size: 12px; color: var(--muted2);
+}
+/* search input */
+.search-row { margin-bottom: 1.25rem; }
+.search-box {
+  width: 100%; padding: 10px 16px;
+  background: var(--bg3); border: 1px solid var(--border2); border-radius: 10px;
+  color: var(--text); font-family: 'Outfit', sans-serif; font-size: 14px; transition: border-color .2s;
+}
+.search-box:focus { outline: none; border-color: var(--accent); }
+.search-box::placeholder { color: var(--muted); }
 
-/* buttons */
-.btn-save{
-  flex:1;min-width:110px;padding:10px 18px;
-  background:linear-gradient(135deg,#e63946,#ff6b6b);
-  border:none;border-radius:10px;color:#fff;
-  font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;cursor:pointer;
-  transition:filter .15s,transform .1s;
+/* ── Genre filter tabs ────────────────────────────────────────── */
+.gtabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.gtab {
+  padding: 6px 16px; background: transparent;
+  border: 1px solid var(--border); border-radius: 20px;
+  color: var(--muted2); font-family: 'Outfit', sans-serif;
+  font-size: 13px; font-weight: 500; cursor: pointer; transition: all .15s;
 }
-.btn-save:hover{filter:brightness(1.1)}
-.btn-save:active{transform:scale(.97)}
-.btn-save.saved{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);color:var(--green)}
-.btn-link{
-  padding:10px 15px;border-radius:10px;
-  font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;
-  text-decoration:none;display:inline-flex;align-items:center;gap:5px;
-  cursor:pointer;transition:all .15s;white-space:nowrap;
-}
-.bl-rezka{background:rgba(230,57,70,.08);border:1px solid rgba(230,57,70,.25);color:var(--accent)}
-.bl-rezka:hover{background:rgba(230,57,70,.18)}
-.bl-imdb{background:rgba(245,197,24,.08);border:1px solid rgba(245,197,24,.25);color:var(--imdb)}
-.bl-imdb:hover{background:rgba(245,197,24,.18)}
-.btn-again{
-  padding:10px 15px;background:transparent;border:1px solid var(--border2);
-  border-radius:10px;color:var(--muted2);font-family:'Outfit',sans-serif;
-  font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;white-space:nowrap;
-}
-.btn-again:hover{color:var(--text);background:var(--bg3)}
+.gtab:hover { color: var(--text); border-color: var(--border2); }
+.gtab.on    { background: var(--accent); border-color: var(--accent); color: #fff; }
 
-/* ─── SECTION SHARED ───────────────────────────────────────────── */
-.sec{max-width:1160px;margin:0 auto;padding:2.5rem 2rem 5rem}
-.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem}
-.sec-title{font-size:1.5rem;font-weight:800;letter-spacing:-.03em}
-.pill{
-  padding:4px 13px;background:var(--bg3);
-  border:1px solid var(--border2);border-radius:20px;
-  font-size:12px;color:var(--muted2);
+/* ── Catalog grid ─────────────────────────────────────────────── */
+.mgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); gap: 14px; }
+.gcard {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 14px; overflow: hidden; transition: transform .18s, border-color .18s;
 }
-.search-row{margin-bottom:1.25rem}
-.search-box{
-  width:100%;padding:10px 16px;
-  background:var(--bg3);border:1px solid var(--border2);
-  border-radius:10px;color:var(--text);
-  font-family:'Outfit',sans-serif;font-size:14px;
-  transition:border-color .2s;
+.gcard:hover { transform: translateY(-4px); border-color: var(--border2); }
+.gc-poster { height: 108px; display: flex; align-items: center; justify-content: center; font-size: 44px; }
+.gc-body   { padding: 10px 13px 13px; }
+.gc-genre  { font-size: 10px; font-weight: 600; color: var(--accent); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 4px; }
+.gc-title  {
+  font-size: 13px; font-weight: 700; line-height: 1.3; margin-bottom: 6px;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
-.search-box:focus{outline:none;border-color:var(--accent)}
-.search-box::placeholder{color:var(--muted)}
+.gc-rats   { display: flex; gap: 5px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+.gr-imdb   { font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 2px 7px; border-radius: 5px; font-weight: 600; background: rgba(245,197,24,.12); color: var(--imdb); }
+.gr-votes  { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); }
+.gc-foot   { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+.gc-watch  {
+  font-size: 11px; font-weight: 600; color: var(--accent); text-decoration: none;
+  padding: 4px 9px; border: 1px solid rgba(230,57,70,.25); border-radius: 7px;
+  background: rgba(230,57,70,.06); transition: all .15s; white-space: nowrap;
+}
+.gc-watch:hover { background: rgba(230,57,70,.16); }
+.gc-save {
+  width: 30px; height: 30px; background: var(--bg3);
+  border: 1px solid var(--border); border-radius: 8px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 16px; transition: all .15s; flex-shrink: 0;
+}
+.gc-save:hover { border-color: var(--accent); background: rgba(230,57,70,.1); }
+.gc-save.saved { background: rgba(34,197,94,.1); border-color: rgba(34,197,94,.3); }
 
-/* ─── GENRE TABS ───────────────────────────────────────────────── */
-.gtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.5rem}
-.gtab{
-  padding:6px 16px;background:transparent;
-  border:1px solid var(--border);border-radius:20px;
-  color:var(--muted2);font-family:'Outfit',sans-serif;
-  font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;
+/* ── Watchlist page ───────────────────────────────────────────── */
+.wl-empty { text-align: center; padding: 5rem 2rem; color: var(--muted); }
+.wl-empty-ico { font-size: 56px; margin-bottom: 1rem; }
+.wl-empty h3  { font-size: 1.1rem; font-weight: 700; color: var(--muted2); margin-bottom: .5rem; }
+.wl-empty p   { font-size: 14px; line-height: 1.65; }
+.wl-list { display: flex; flex-direction: column; gap: 10px; }
+.wl-item {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 18px; background: var(--bg2);
+  border: 1px solid var(--border); border-radius: 14px; transition: border-color .15s;
 }
-.gtab:hover{color:var(--text);border-color:var(--border2)}
-.gtab.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.wl-item:hover      { border-color: var(--border2); }
+.wl-item.done-item  { opacity: .45; }
+.wl-ico  { font-size: 30px; flex-shrink: 0; }
+.wl-info { flex: 1; min-width: 0; }
+.wl-name { font-size: 15px; font-weight: 700; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wl-meta { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); }
+/* "watched" label on watchlist items */
+.done-tag {
+  font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px;
+  background: rgba(34,197,94,.1); border: 1px solid rgba(34,197,94,.2);
+  color: var(--green); margin-left: 8px; letter-spacing: .04em; text-transform: uppercase;
+}
+.wl-acts  { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.wl-watch {
+  font-size: 12px; font-weight: 600; color: var(--accent); text-decoration: none;
+  padding: 5px 10px; border: 1px solid rgba(230,57,70,.25); border-radius: 8px;
+  background: rgba(230,57,70,.06); transition: all .15s; white-space: nowrap;
+}
+.wl-watch:hover { background: rgba(230,57,70,.15); }
+.wl-chk {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 1.5px solid var(--border2); background: transparent;
+  color: var(--muted); font-size: 14px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; transition: all .15s; flex-shrink: 0;
+}
+.wl-chk.done { background: var(--green); border-color: var(--green); color: #fff; }
+.wl-chk:hover:not(.done) { border-color: var(--green); color: var(--green); }
+.wl-del {
+  width: 32px; height: 32px; border-radius: 8px;
+  border: 1px solid var(--border); background: transparent;
+  color: var(--muted); font-size: 17px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; transition: all .15s; flex-shrink: 0;
+}
+.wl-del:hover { color: var(--accent); border-color: rgba(230,57,70,.3); background: rgba(230,57,70,.08); }
 
-/* ─── CATALOG GRID ─────────────────────────────────────────────── */
-.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:14px}
-.gcard{
-  background:var(--bg2);border:1px solid var(--border);
-  border-radius:14px;overflow:hidden;
-  transition:transform .18s,border-color .18s;
+/* ── Toast notification ───────────────────────────────────────── */
+.toast {
+  position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+  padding: 10px 22px; background: var(--bg3); border: 1px solid var(--border2);
+  border-radius: 50px; font-size: 14px; font-weight: 500; color: var(--text);
+  z-index: 9999; pointer-events: none; opacity: 0; transition: opacity .22s; white-space: nowrap;
 }
-.gcard:hover{transform:translateY(-4px);border-color:var(--border2)}
-.gc-poster{height:108px;display:flex;align-items:center;justify-content:center;font-size:44px}
-.gc-body{padding:10px 13px 13px}
-.gc-genre{font-size:10px;font-weight:600;color:var(--accent);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
-.gc-title{
-  font-size:13px;font-weight:700;line-height:1.3;margin-bottom:6px;
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
-}
-.gc-rats{display:flex;gap:5px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
-.gr-imdb{font-family:'JetBrains Mono',monospace;font-size:10px;padding:2px 7px;border-radius:5px;font-weight:600;background:rgba(245,197,24,.12);color:var(--imdb)}
-.gr-votes{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted)}
-.gc-foot{display:flex;align-items:center;justify-content:space-between;gap:6px}
-.gc-watch{
-  font-size:11px;font-weight:600;color:var(--accent);text-decoration:none;
-  padding:4px 9px;border:1px solid rgba(230,57,70,.25);border-radius:7px;
-  background:rgba(230,57,70,.06);transition:all .15s;white-space:nowrap;
-}
-.gc-watch:hover{background:rgba(230,57,70,.16)}
-.gc-save{
-  width:30px;height:30px;background:var(--bg3);
-  border:1px solid var(--border);border-radius:8px;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;
-  font-size:16px;transition:all .15s;flex-shrink:0;
-}
-.gc-save:hover{border-color:var(--accent);background:rgba(230,57,70,.1)}
-.gc-save.saved{background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.3)}
+.toast.show { opacity: 1; }
 
-/* ─── WATCHLIST ────────────────────────────────────────────────── */
-.wl-empty{text-align:center;padding:5rem 2rem;color:var(--muted)}
-.wl-empty-ico{font-size:56px;margin-bottom:1rem}
-.wl-empty h3{font-size:1.1rem;font-weight:700;color:var(--muted2);margin-bottom:.5rem}
-.wl-empty p{font-size:14px;line-height:1.65}
-.wl-list{display:flex;flex-direction:column;gap:10px}
-.wl-item{
-  display:flex;align-items:center;gap:14px;
-  padding:14px 18px;background:var(--bg2);
-  border:1px solid var(--border);border-radius:14px;transition:border-color .15s;
-}
-.wl-item:hover{border-color:var(--border2)}
-.wl-item.done{opacity:.45}
-.wl-ico{font-size:30px;flex-shrink:0}
-.wl-info{flex:1;min-width:0}
-.wl-name{font-size:15px;font-weight:700;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.wl-meta{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)}
-.done-tag{
-  font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;
-  background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);
-  color:var(--green);margin-left:8px;letter-spacing:.04em;text-transform:uppercase;
-}
-.wl-acts{display:flex;align-items:center;gap:6px;flex-shrink:0}
-.wl-watch{
-  font-size:12px;font-weight:600;color:var(--accent);text-decoration:none;
-  padding:5px 10px;border:1px solid rgba(230,57,70,.25);border-radius:8px;
-  background:rgba(230,57,70,.06);transition:all .15s;white-space:nowrap;
-}
-.wl-watch:hover{background:rgba(230,57,70,.15)}
-.wl-chk{
-  width:32px;height:32px;border-radius:50%;
-  border:1.5px solid var(--border2);background:transparent;
-  color:var(--muted);font-size:14px;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  transition:all .15s;flex-shrink:0;
-}
-.wl-chk.done{background:var(--green);border-color:var(--green);color:#fff}
-.wl-chk:hover:not(.done){border-color:var(--green);color:var(--green)}
-.wl-del{
-  width:32px;height:32px;border-radius:8px;
-  border:1px solid var(--border);background:transparent;
-  color:var(--muted);font-size:17px;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  transition:all .15s;flex-shrink:0;
-}
-.wl-del:hover{color:var(--accent);border-color:rgba(230,57,70,.3);background:rgba(230,57,70,.08)}
-
-/* ─── TOAST ────────────────────────────────────────────────────── */
-.toast{
-  position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);
-  padding:10px 22px;background:var(--bg3);border:1px solid var(--border2);
-  border-radius:50px;font-size:14px;font-weight:500;color:var(--text);
-  z-index:9999;pointer-events:none;opacity:0;transition:opacity .22s;white-space:nowrap;
-}
-.toast.show{opacity:1}
-
-/* ─── RESPONSIVE ───────────────────────────────────────────────── */
-@media(max-width:640px){
-  nav{padding:0 1rem}
-  .hero{padding:3.5rem 1rem 2rem}
-  .mcard{flex-direction:column}
-  .mcard-poster{width:100%;height:120px}
-  .mcard-poster::after{background:linear-gradient(to bottom,transparent 55%,var(--bg2))}
-  .sec{padding:2rem 1rem 3rem}
-  .mgrid{grid-template-columns:repeat(auto-fill,minmax(148px,1fr))}
-  .nav-lbl{display:none}
+/* ── Responsive ───────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  nav { padding: 0 1rem; }
+  .hero { padding: 3.5rem 1rem 2rem; }
+  .mcard { flex-direction: column; }
+  .mcard-poster { width: 100%; height: 120px; }
+  .mcard-poster::after { background: linear-gradient(to bottom, transparent 55%, var(--bg2)); }
+  .sec  { padding: 2rem 1rem 3rem; }
+  .mgrid { grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); }
+  .nav-lbl { display: none; }
 }
 </style>
 </head>
 <body>
 <div class="toast" id="toast"></div>
 
-<!-- ══ NAVBAR ══ -->
+<!-- ════════ NAVBAR ════════ -->
 <nav>
   <div class="logo" onclick="goPage('home')">Cine<em>Roll</em></div>
-  <div class="nav-center">
-    <button class="nav-btn active" id="nav-home" onclick="goPage('home')">
-      <span class="nav-lbl" data-t="nav_home">Главная</span>
+  <div class="nav-links">
+    <button class="nav-btn active" id="nav-home"      onclick="goPage('home')">
+      <span class="nav-lbl" data-t="nav_home">Home</span>
     </button>
-    <button class="nav-btn" id="nav-catalog" onclick="goPage('catalog')">
-      <span class="nav-lbl" data-t="nav_catalog">Каталог</span>
+    <button class="nav-btn"        id="nav-catalog"   onclick="goPage('catalog')">
+      <span class="nav-lbl" data-t="nav_catalog">Catalog</span>
     </button>
-    <button class="nav-btn" id="nav-watchlist" onclick="goPage('watchlist')">
-      <span class="nav-lbl" data-t="nav_watchlist">Список</span>
+    <button class="nav-btn"        id="nav-watchlist" onclick="goPage('watchlist')">
+      <span class="nav-lbl" data-t="nav_watchlist">Watchlist</span>
       <span class="wl-badge" id="wl-badge"></span>
     </button>
   </div>
-  <div class="nav-right">
+  <div style="display:flex;align-items:center;gap:8px">
     <div class="lang-toggle">
-      <button class="lang-btn on"  id="lb-ru" onclick="setLang('ru')">RU</button>
-      <button class="lang-btn"     id="lb-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn"    id="lb-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn on" id="lb-ru" onclick="setLang('ru')">RU</button>
     </div>
   </div>
 </nav>
 
-<!-- ══ HOME ══ -->
+<!-- ════════ HOME ════════ -->
 <div class="page active" id="page-home">
   <div class="hero">
-    <div class="hero-tag" data-t="tag"></div>
+    <div class="hero-tag" data-t="tag">Real IMDb data</div>
     <h1 class="hero-h" data-t="h1"></h1>
     <p class="hero-sub" data-t="sub"></p>
     <div class="filters">
       <div class="fw">
-        <div class="flabel" data-t="l_genre">Жанр</div>
+        <div class="flabel" data-t="l_genre">Genre</div>
         <select id="f-genre"></select>
       </div>
       <div class="fw">
-        <div class="flabel" data-t="l_year">Год</div>
+        <div class="flabel" data-t="l_year">Year</div>
         <select id="f-year"></select>
       </div>
       <div class="fw">
-        <div class="flabel" data-t="l_rating">Рейтинг IMDb</div>
+        <div class="flabel" data-t="l_rating">IMDb Rating</div>
         <select id="f-rating"></select>
       </div>
     </div>
     <button class="roll-btn" id="roll-btn" onclick="doRoll()">
       <span class="dice">🎲</span>
-      <span data-t="roll_btn">Случайный фильм</span>
+      <span data-t="roll_btn">Random Movie</span>
     </button>
     <div id="result-area"></div>
   </div>
 </div>
 
-<!-- ══ CATALOG ══ -->
+<!-- ════════ CATALOG ════════ -->
 <div class="page" id="page-catalog">
   <div class="sec">
     <div class="sec-hdr">
-      <h2 class="sec-title" data-t="cat_title">Каталог</h2>
+      <h2 class="sec-title" data-t="cat_title">Movie Catalog</h2>
       <div class="pill" id="cat-pill"></div>
     </div>
     <div class="search-row">
@@ -408,14 +409,24 @@ select option{background:#1a1a1f}
     </div>
     <div class="gtabs" id="gtabs"></div>
     <div class="mgrid" id="cat-grid"></div>
+    <!-- Load More button — shown when there are more results to display -->
+    <div id="load-more-wrap" style="display:none;text-align:center;margin-top:2rem">
+      <button id="load-more-btn" onclick="loadMore()"
+        style="padding:10px 32px;background:transparent;border:1px solid var(--border2);
+               border-radius:50px;color:var(--muted2);font-family:'Outfit',sans-serif;
+               font-size:14px;font-weight:500;cursor:pointer;transition:all .18s">
+        <span data-t="load_more">Load more</span>
+        <span id="load-more-count" style="margin-left:6px;font-size:12px;color:var(--muted)"></span>
+      </button>
+    </div>
   </div>
 </div>
 
-<!-- ══ WATCHLIST ══ -->
+<!-- ════════ WATCHLIST ════════ -->
 <div class="page" id="page-watchlist">
   <div class="sec">
     <div class="sec-hdr">
-      <h2 class="sec-title" data-t="wl_title">Список просмотра</h2>
+      <h2 class="sec-title" data-t="wl_title">Watchlist</h2>
       <div class="pill" id="wl-pill"></div>
     </div>
     <div id="wl-body"></div>
@@ -423,90 +434,141 @@ select option{background:#1a1a1f}
 </div>
 
 <script>
-// ── MOVIE DATA (injected by build_cineroll.py) ───────────────────
+// ════════════════════════════════════════════════════════════════
+// MOVIE DATA
+// Injected by build_cineroll.py — do not edit this line manually.
+// Each movie object has:
+//   id, title (EN), title_ru (RU or same as title), year, genre,
+//   emoji, bg, imdb, votes, runtime, imdbUrl, rezka_en, rezka_ru
+// ════════════════════════════════════════════════════════════════
 const MOVIES = /*MOVIES_DATA*/[];
 
-// ── i18n ─────────────────────────────────────────────────────────
-const T = {
-  ru:{
-    nav_home:'Главная', nav_catalog:'Каталог', nav_watchlist:'Список',
-    tag:'Реальные данные IMDb',
-    h1:'Не знаешь<br>что <span class="ghost">посмотреть?</span>',
-    sub:'Выбери жанр, год и рейтинг — или нажми кнопку, и мы выберем за тебя',
-    l_genre:'Жанр', l_year:'Год', l_rating:'Рейтинг IMDb',
-    ag:'Любой жанр', ay:'Любой год', ar:'Любой рейтинг',
-    y1:'2020 – сегодня', y2:'2015 – 2019', y3:'2010 – 2014', y4:'2000 – 2009', y5:'До 2000',
-    roll_btn:'Случайный фильм',
-    bs:'+ В список', bsaved:'✓ В списке', bwatch:'▶ Смотреть', bimdb:'IMDb →', bother:'Другой →',
-    cat_title:'Каталог фильмов', fc:'фильмов',
-    wl_title:'Список просмотра',
-    we_h:'Список пуст', we_p:'Добавляй фильмы через случайный выбор или из каталога',
-    done_lbl:'просмотрен',
-    ta:'✓ Добавлено в список', tr:'Удалено из списка',
-    tab_all:'Все', mark:'Отметить просмотренным',
-    votes:'голосов', mins:'мин', search_ph:'Поиск по названию…',
+// ════════════════════════════════════════════════════════════════
+// TRANSLATIONS  (UI strings only — movie titles come from data)
+// ════════════════════════════════════════════════════════════════
+const TR = {
+  en: {
+    nav_home: 'Home',       nav_catalog: 'Catalog',  nav_watchlist: 'Watchlist',
+    tag:  'Real IMDb data',
+    h1:   "Can't decide<br>what to <span class='ghost'>watch?</span>",
+    sub:  "Pick a genre, year and rating — or just hit the button and we'll choose for you",
+    l_genre: 'Genre',  l_year: 'Year',  l_rating: 'IMDb Rating',
+    ag: 'Any genre',   ay: 'Any year',  ar: 'Any rating',
+    y1: '2020 – today',   y2: '2015 – 2019', y3: '2010 – 2014',
+    y4: '2000 – 2009',    y5: 'Before 2000',
+    roll_btn: 'Random Movie',
+    bs: '+ Watchlist',  bsaved: '✓ Saved',
+    bwatch: '▶ Watch',  bimdb: 'IMDb →',  bother: 'Another →',
+    cat_title: 'Movie Catalog',  fc: 'movies',
+    wl_title: 'Watchlist',
+    we_h: 'Your list is empty',
+    we_p: 'Add movies via the random pick or from the catalog',
+    done_lbl: 'watched',
+    ta: '✓ Added to watchlist',  tr: 'Removed from watchlist',
+    tab_all: 'All',   mark: 'Mark as watched',
+    votes: 'votes',   mins: 'min',   search_ph: 'Search by title…',
+    also_known: 'Also known as',
+    rating_line: 'Rating',   on_imdb: 'on IMDb',
+    load_more: 'Load more',
   },
-  en:{
-    nav_home:'Home', nav_catalog:'Catalog', nav_watchlist:'Watchlist',
-    tag:'Real IMDb data',
-    h1:"Can't decide<br>what to <span class='ghost'>watch?</span>",
-    sub:'Set genre, year and rating — or just hit the button and we pick for you',
-    l_genre:'Genre', l_year:'Year', l_rating:'IMDb Rating',
-    ag:'Any genre', ay:'Any year', ar:'Any rating',
-    y1:'2020 – today', y2:'2015 – 2019', y3:'2010 – 2014', y4:'2000 – 2009', y5:'Before 2000',
-    roll_btn:'Random Movie',
-    bs:'+ Watchlist', bsaved:'✓ Saved', bwatch:'▶ Watch', bimdb:'IMDb →', bother:'Another →',
-    cat_title:'Movie Catalog', fc:'movies',
-    wl_title:'Watchlist',
-    we_h:'Your list is empty', we_p:'Add movies via random pick or from the catalog',
-    done_lbl:'watched',
-    ta:'✓ Added to watchlist', tr:'Removed from watchlist',
-    tab_all:'All', mark:'Mark as watched',
-    votes:'votes', mins:'min', search_ph:'Search by title…',
-  }
+  ru: {
+    nav_home: 'Главная',    nav_catalog: 'Каталог',  nav_watchlist: 'Список',
+    tag:  'Данные IMDb',
+    h1:   'Не знаешь<br>что <span class="ghost">посмотреть?</span>',
+    sub:  'Выбери жанр, год и рейтинг — или нажми кнопку, и мы выберем за тебя',
+    l_genre: 'Жанр',   l_year: 'Год',   l_rating: 'Рейтинг IMDb',
+    ag: 'Любой жанр',  ay: 'Любой год', ar: 'Любой рейтинг',
+    y1: '2020 – сегодня', y2: '2015 – 2019', y3: '2010 – 2014',
+    y4: '2000 – 2009',    y5: 'До 2000',
+    roll_btn: 'Случайный фильм',
+    bs: '+ В список',   bsaved: '✓ В списке',
+    bwatch: '▶ Смотреть', bimdb: 'IMDb →', bother: 'Другой →',
+    cat_title: 'Каталог фильмов',  fc: 'фильмов',
+    wl_title: 'Список просмотра',
+    we_h: 'Список пуст',
+    we_p: 'Добавляй фильмы через случайный выбор или из каталога',
+    done_lbl: 'просмотрен',
+    ta: '✓ Добавлено в список',  tr: 'Удалено из списка',
+    tab_all: 'Все',   mark: 'Отметить просмотренным',
+    votes: 'оценок',  mins: 'мин',   search_ph: 'Поиск по названию…',
+    also_known: 'Оригинальное название',
+    rating_line: 'Рейтинг',  on_imdb: 'на IMDb',
+    load_more: 'Показать ещё',
+  },
 };
 
-// ── STATE ─────────────────────────────────────────────────────────
-let lang      = localStorage.getItem('cr_lang') || 'ru';
+// ════════════════════════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════════════════════════
+let lang      = localStorage.getItem('cr_lang') || 'en';
 let watchlist = JSON.parse(localStorage.getItem('cr_wl')   || '[]');
 let watched   = JSON.parse(localStorage.getItem('cr_done') || '[]');
-let catGenre  = '';
-let lastId    = null;
+let catGenre  = '';   // current genre filter in catalog
+let lastId    = null; // last rolled movie id (for lang switch re-render)
 
-const t  = k => T[lang][k] ?? k;
+// shorthand translation getter
+const t  = k => TR[lang][k] ?? k;
+// persist watchlist + watched to localStorage
 const ss = () => {
   localStorage.setItem('cr_wl',   JSON.stringify(watchlist));
   localStorage.setItem('cr_done', JSON.stringify(watched));
 };
 
-// ── i18n apply ────────────────────────────────────────────────────
+// ════════════════════════════════════════════════════════════════
+// LANGUAGE HELPERS
+// ════════════════════════════════════════════════════════════════
+
+// Return the display title for a movie in the current language.
+// If RU is active and a Russian title exists, show it; otherwise English.
+function movieTitle(m) {
+  return (lang === 'ru' && m.title_ru && m.title_ru !== m.title)
+    ? m.title_ru
+    : m.title;
+}
+
+// Return the HDRezka search URL for the current language.
+// When RU is active use the Russian title for better search results.
+function rezkaUrl(m) {
+  return (lang === 'ru' && m.rezka_ru) ? m.rezka_ru : m.rezka_en;
+}
+
+// Apply all data-t text nodes and data-ph placeholders
 function applyLang() {
   document.querySelectorAll('[data-t]').forEach(el => {
-    const v = T[lang][el.dataset.t];
+    const v = TR[lang][el.dataset.t];
     if (v !== undefined) el.innerHTML = v;
   });
   document.querySelectorAll('[data-ph]').forEach(el => {
-    const v = T[lang][el.dataset.ph];
+    const v = TR[lang][el.dataset.ph];
     if (v !== undefined) el.placeholder = v;
   });
   buildFilters();
-  badge();
+  updateBadge();
 }
 
+// Switch language and re-render whatever is currently visible
 function setLang(l) {
   lang = l;
   localStorage.setItem('cr_lang', l);
-  document.getElementById('lb-ru').className = 'lang-btn' + (l==='ru' ? ' on' : '');
-  document.getElementById('lb-en').className = 'lang-btn' + (l==='en' ? ' on' : '');
-  catGenre = '';
+  document.getElementById('lb-en').className = 'lang-btn' + (l === 'en' ? ' on' : '');
+  document.getElementById('lb-ru').className = 'lang-btn' + (l === 'ru' ? ' on' : '');
+  catGenre = ''; // reset genre tab (genre names may differ in the future)
   applyLang();
+  // re-render active page
   if (document.getElementById('page-catalog').classList.contains('active'))   renderCatalog();
   if (document.getElementById('page-watchlist').classList.contains('active')) renderWatchlist();
-  if (lastId) { const m = byId(lastId); if (m) showCard(m); }
+  // re-render the result card so title + watch-link update
+  if (lastId) {
+    const m = byId(lastId);
+    if (m) showCard(m);
+  }
 }
 
-// ── FILTERS ───────────────────────────────────────────────────────
+// ════════════════════════════════════════════════════════════════
+// FILTER DROPDOWNS
+// ════════════════════════════════════════════════════════════════
 function buildFilters() {
+  // genre options derived from dataset
   const genres = [...new Set(MOVIES.map(m => m.genre))].sort();
   document.getElementById('f-genre').innerHTML =
     `<option value="">${t('ag')}</option>` +
@@ -528,10 +590,12 @@ function buildFilters() {
     <option value="6">IMDb 6.0+</option>`;
 }
 
-// ── HELPERS ───────────────────────────────────────────────────────
+// ════════════════════════════════════════════════════════════════
+// UTILITIES
+// ════════════════════════════════════════════════════════════════
 const byId = id => MOVIES.find(m => m.id === id);
 
-function badge() {
+function updateBadge() {
   const b = document.getElementById('wl-badge');
   if (watchlist.length) { b.textContent = watchlist.length; b.style.display = 'inline-flex'; }
   else b.style.display = 'none';
@@ -539,30 +603,50 @@ function badge() {
 
 function toast(msg) {
   const el = document.getElementById('toast');
-  el.textContent = msg; el.classList.add('show');
-  clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove('show'), 2200);
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), 2200);
 }
 
+// Format large vote counts: 1234567 → "1.2M", 234000 → "234K"
 function fmt(n) {
   if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M';
   if (n >= 1e3) return Math.round(n / 1e3) + 'K';
   return n;
 }
 
+// ════════════════════════════════════════════════════════════════
+// NAVIGATION
+// ════════════════════════════════════════════════════════════════
+function goPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.getElementById('nav-'  + name).classList.add('active');
+  if (name === 'catalog')   renderCatalog();
+  if (name === 'watchlist') renderWatchlist();
+  updateBadge();
+}
+
+// ════════════════════════════════════════════════════════════════
+// WATCHLIST TOGGLE
+// ════════════════════════════════════════════════════════════════
 function toggleSave(id) {
   const i = watchlist.indexOf(id);
   if (i === -1) { watchlist.push(id); toast(t('ta')); }
   else { watchlist.splice(i, 1); watched = watched.filter(w => w !== id); toast(t('tr')); }
-  ss(); badge();
-  // update save buttons everywhere
+  ss();
+  updateBadge();
+  // update every save button that references this movie
   document.querySelectorAll(`[data-sid="${id}"]`).forEach(b => {
     const s = watchlist.includes(id);
-    b.className = 'btn-save' + (s ? ' saved' : '');
+    b.className  = 'btn-save' + (s ? ' saved' : '');
     b.textContent = s ? t('bsaved') : t('bs');
   });
   document.querySelectorAll(`[data-gsave="${id}"]`).forEach(b => {
     const s = watchlist.includes(id);
-    b.className = 'gc-save' + (s ? ' saved' : '');
+    b.className  = 'gc-save' + (s ? ' saved' : '');
     b.textContent = s ? '✓' : '+';
   });
 }
@@ -570,21 +654,13 @@ function toggleSave(id) {
 function toggleDone(id) {
   const i = watched.indexOf(id);
   if (i === -1) watched.push(id); else watched.splice(i, 1);
-  ss(); renderWatchlist();
+  ss();
+  renderWatchlist();
 }
 
-// ── NAV ───────────────────────────────────────────────────────────
-function goPage(name) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('page-' + name).classList.add('active');
-  document.getElementById('nav-' + name).classList.add('active');
-  if (name === 'catalog')   renderCatalog();
-  if (name === 'watchlist') renderWatchlist();
-  badge();
-}
-
-// ── ROLL ──────────────────────────────────────────────────────────
+// ════════════════════════════════════════════════════════════════
+// RANDOM ROLL (Home page)
+// ════════════════════════════════════════════════════════════════
 function getPool() {
   const genre  = document.getElementById('f-genre').value;
   const yearV  = document.getElementById('f-year').value;
@@ -605,20 +681,30 @@ function doRoll() {
   if (!pool.length) {
     document.getElementById('result-area').innerHTML =
       `<p style="color:var(--muted2);font-size:14px;text-align:center;padding:1rem">
-        😕 ${lang === 'ru' ? 'Нет фильмов по выбранным фильтрам' : 'No movies match the filters'}
+        😕 ${lang === 'en' ? 'No movies match the selected filters' : 'Нет фильмов по выбранным фильтрам'}
       </p>`;
-    lastId = null; return;
+    lastId = null;
+    return;
   }
+  // animate the dice icon
   const btn = document.getElementById('roll-btn');
   btn.classList.add('spin');
   setTimeout(() => btn.classList.remove('spin'), 520);
   showCard(pool[Math.floor(Math.random() * pool.length)]);
 }
 
+// Render the big result card on the Home page
 function showCard(m) {
   lastId = m.id;
-  const saved = watchlist.includes(m.id);
-  const rt = m.runtime > 0 ? ` · ${m.runtime} ${t('mins')}` : '';
+  const saved    = watchlist.includes(m.id);
+  const dispTitle = movieTitle(m);                   // RU or EN depending on lang
+  const watchLink = rezkaUrl(m);                     // correct HDRezka search URL
+  const rt        = m.runtime > 0 ? ` · ${m.runtime} ${t('mins')}` : '';
+  // show original EN title as subtitle when RU is active and differs
+  const subtitle  = (lang === 'ru' && m.title_ru !== m.title)
+    ? `<div class="mcard-title-sub">${t('also_known')}: ${m.title}</div>`
+    : '';
+
   document.getElementById('result-area').innerHTML = `
     <div class="card-in">
       <div class="mcard">
@@ -627,7 +713,8 @@ function showCard(m) {
         </div>
         <div class="mcard-body">
           <span class="genre-tag">${m.genre}</span>
-          <div class="mcard-title">${m.title}</div>
+          <div class="mcard-title">${dispTitle}</div>
+          ${subtitle}
           <div class="mcard-year">${m.year}${rt}</div>
           <div class="chips">
             <div class="chip chip-imdb">
@@ -637,15 +724,20 @@ function showCard(m) {
             <span class="chip chip-votes">${fmt(m.votes)} ${t('votes')}</span>
           </div>
           <p class="mcard-desc">
-            ${lang === 'ru' ? 'Рейтинг' : 'Rating'} <strong>${m.imdb.toFixed(1)}/10</strong>
-            · ${fmt(m.votes)} ${t('votes')} on IMDb${rt}.
+            ${t('rating_line')}: <strong>${m.imdb.toFixed(1)}/10</strong>
+            &nbsp;·&nbsp; ${fmt(m.votes)} ${t('votes')} ${t('on_imdb')}${rt}.
           </p>
           <div class="mcard-actions">
-            <button class="btn-save ${saved ? 'saved' : ''}" data-sid="${m.id}" onclick="toggleSave('${m.id}')">
+            <button class="btn-save ${saved ? 'saved' : ''}" data-sid="${m.id}"
+              onclick="toggleSave('${m.id}')">
               ${saved ? t('bsaved') : t('bs')}
             </button>
-            <a class="btn-link bl-rezka" href="${m.rezka}"   target="_blank" rel="noopener">${t('bwatch')}</a>
-            <a class="btn-link bl-imdb"  href="${m.imdbUrl}" target="_blank" rel="noopener">${t('bimdb')}</a>
+            <a class="btn-link bl-rezka" href="${watchLink}" target="_blank" rel="noopener">
+              ${t('bwatch')}
+            </a>
+            <a class="btn-link bl-imdb" href="${m.imdbUrl}" target="_blank" rel="noopener">
+              ${t('bimdb')}
+            </a>
             <button class="btn-again" onclick="doRoll()">${t('bother')}</button>
           </div>
         </div>
@@ -653,45 +745,115 @@ function showCard(m) {
     </div>`;
 }
 
-// ── CATALOG ───────────────────────────────────────────────────────
+// ════════════════════════════════════════════════════════════════
+// CATALOG PAGE
+// ════════════════════════════════════════════════════════════════
 const ALL_GENRES = [...new Set(MOVIES.map(m => m.genre))].sort();
 
+const PAGE_SIZE  = 60;   // cards rendered per page (keeps DOM lean for 10k+ movies)
+let catPool      = [];   // current filtered+sorted movie list
+let catPage      = 0;    // how many pages have been rendered so far
+
+// Build a single catalog card HTML string
+function cardHtml(m) {
+  const saved     = watchlist.includes(m.id);
+  const dispTitle = movieTitle(m);
+  const watchLink = rezkaUrl(m);
+  return `
+  <div class="gcard">
+    <div class="gc-poster" style="background:${m.bg}">${m.emoji}</div>
+    <div class="gc-body">
+      <div class="gc-genre">${m.genre}</div>
+      <div class="gc-title">${dispTitle}
+        <span style="font-size:11px;color:var(--muted);font-weight:400"> ${m.year}</span>
+      </div>
+      <div class="gc-rats">
+        <span class="gr-imdb">★ ${m.imdb.toFixed(1)}</span>
+        <span class="gr-votes">${fmt(m.votes)}</span>
+      </div>
+      <div class="gc-foot">
+        <a class="gc-watch" href="${watchLink}" target="_blank" rel="noopener">
+          ▶ ${t('bwatch')}
+        </a>
+        <button class="gc-save ${saved ? 'saved' : ''}" data-gsave="${m.id}"
+          onclick="toggleSave('${m.id}');rerenderSaveBtn('${m.id}');">
+          ${saved ? '✓' : '+'}
+        </button>
+      </div>
+    </div>
+  </div>`;
+}
+
+// Re-render just the save button for a specific movie in the grid (avoids full re-render)
+function rerenderSaveBtn(id) {
+  document.querySelectorAll(`[data-gsave="${id}"]`).forEach(b => {
+    const s = watchlist.includes(id);
+    b.className  = 'gc-save' + (s ? ' saved' : '');
+    b.textContent = s ? '✓' : '+';
+  });
+}
+
+// Full catalog render — resets pagination and shows first page
 function renderCatalog() {
-  const all = t('tab_all');
+  const all    = t('tab_all');
   const genres = [all, ...ALL_GENRES];
+
+  // Rebuild genre tabs
   document.getElementById('gtabs').innerHTML = genres.map(g =>
     `<button class="gtab ${(catGenre === g || (!catGenre && g === all)) ? 'on' : ''}"
       onclick="setCatGenre('${g}')">${g}</button>`
   ).join('');
 
-  const q = (document.getElementById('cat-search').value || '').toLowerCase();
-  let pool = catGenre ? MOVIES.filter(m => m.genre === catGenre) : [...MOVIES];
-  if (q) pool = pool.filter(m => m.title.toLowerCase().includes(q));
-  pool.sort((a, b) => b.imdb - a.imdb);
+  // Filter
+  const q = (document.getElementById('cat-search').value || '').toLowerCase().trim();
+  catPool = catGenre ? MOVIES.filter(m => m.genre === catGenre) : [...MOVIES];
+  if (q) {
+    catPool = catPool.filter(m =>
+      m.title.toLowerCase().includes(q) ||
+      (m.title_ru && m.title_ru.toLowerCase().includes(q))
+    );
+  }
 
-  document.getElementById('cat-pill').textContent = pool.length + ' ' + t('fc');
-  document.getElementById('cat-grid').innerHTML = pool.map(m => {
-    const saved = watchlist.includes(m.id);
-    return `
-    <div class="gcard">
-      <div class="gc-poster" style="background:${m.bg}">${m.emoji}</div>
-      <div class="gc-body">
-        <div class="gc-genre">${m.genre}</div>
-        <div class="gc-title">${m.title}
-          <span style="font-size:11px;color:var(--muted);font-weight:400"> ${m.year}</span>
-        </div>
-        <div class="gc-rats">
-          <span class="gr-imdb">★ ${m.imdb.toFixed(1)}</span>
-          <span class="gr-votes">${fmt(m.votes)}</span>
-        </div>
-        <div class="gc-foot">
-          <a class="gc-watch" href="${m.rezka}" target="_blank" rel="noopener">▶ ${t('bwatch')}</a>
-          <button class="gc-save ${saved ? 'saved' : ''}" data-gsave="${m.id}"
-            onclick="toggleSave('${m.id}');renderCatalog();">${saved ? '✓' : '+'}</button>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
+  // Sort by IMDb score desc
+  catPool.sort((a, b) => b.imdb - a.imdb || b.votes - a.votes);
+
+  document.getElementById('cat-pill').textContent = catPool.length.toLocaleString() + ' ' + t('fc');
+
+  // Reset grid and render first page
+  catPage = 0;
+  document.getElementById('cat-grid').innerHTML = '';
+  appendCatalogPage();
+}
+
+// Append the next PAGE_SIZE cards to the existing grid
+function appendCatalogPage() {
+  const start  = catPage * PAGE_SIZE;
+  const slice  = catPool.slice(start, start + PAGE_SIZE);
+  const grid   = document.getElementById('cat-grid');
+  const wrap   = document.getElementById('load-more-wrap');
+  const count  = document.getElementById('load-more-count');
+
+  grid.insertAdjacentHTML('beforeend', slice.map(cardHtml).join(''));
+  catPage++;
+
+  const rendered  = Math.min(catPage * PAGE_SIZE, catPool.length);
+  const remaining = catPool.length - rendered;
+
+  if (remaining > 0) {
+    wrap.style.display  = 'block';
+    count.textContent   = `(${remaining.toLocaleString()} ${t('fc')} ${t('more_left') || 'remaining'})`;
+    // update load-more button label translation
+    const lmBtn = document.querySelector('#load-more-btn [data-t="load_more"]');
+    if (lmBtn) lmBtn.textContent = t('load_more');
+  } else {
+    wrap.style.display = 'none';
+  }
+}
+
+// Called by the "Load more" button
+function loadMore() {
+  appendCatalogPage();
+  // smooth scroll isn't needed — just append in place
 }
 
 function setCatGenre(g) {
@@ -699,7 +861,9 @@ function setCatGenre(g) {
   renderCatalog();
 }
 
-// ── WATCHLIST ─────────────────────────────────────────────────────
+// ════════════════════════════════════════════════════════════════
+// WATCHLIST PAGE
+// ════════════════════════════════════════════════════════════════
 function renderWatchlist() {
   const el = document.getElementById('wl-body');
   document.getElementById('wl-pill').textContent = watchlist.length + ' ' + t('fc');
@@ -716,13 +880,15 @@ function renderWatchlist() {
 
   const items = watchlist.map(id => byId(id)).filter(Boolean);
   el.innerHTML = `<div class="wl-list">` + items.map(m => {
-    const done = watched.includes(m.id);
-    const rt = m.runtime > 0 ? ` · ${m.runtime} ${t('mins')}` : '';
+    const done      = watched.includes(m.id);
+    const dispTitle = movieTitle(m);
+    const watchLink = rezkaUrl(m);
+    const rt        = m.runtime > 0 ? ` · ${m.runtime} ${t('mins')}` : '';
     return `
-    <div class="wl-item ${done ? 'done' : ''}">
+    <div class="wl-item ${done ? 'done-item' : ''}">
       <span class="wl-ico">${m.emoji}</span>
       <div class="wl-info">
-        <div class="wl-name">${m.title}
+        <div class="wl-name">${dispTitle}
           ${done ? `<span class="done-tag">${t('done_lbl')}</span>` : ''}
         </div>
         <div class="wl-meta">
@@ -730,16 +896,19 @@ function renderWatchlist() {
         </div>
       </div>
       <div class="wl-acts">
-        <a class="wl-watch" href="${m.rezka}" target="_blank" rel="noopener">▶ ${t('bwatch')}</a>
-        <button class="wl-chk ${done ? 'done' : ''}" title="${t('mark')}" onclick="toggleDone('${m.id}')">✓</button>
+        <a class="wl-watch" href="${watchLink}" target="_blank" rel="noopener">▶ ${t('bwatch')}</a>
+        <button class="wl-chk ${done ? 'done' : ''}" title="${t('mark')}"
+          onclick="toggleDone('${m.id}')">✓</button>
         <button class="wl-del" onclick="toggleSave('${m.id}');renderWatchlist();">✕</button>
       </div>
     </div>`;
   }).join('') + `</div>`;
 }
 
-// ── INIT ──────────────────────────────────────────────────────────
-lang = localStorage.getItem('cr_lang') || 'ru';
+// ════════════════════════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════════════════════════
+lang = localStorage.getItem('cr_lang') || 'en';
 setLang(lang);
 </script>
 </body>

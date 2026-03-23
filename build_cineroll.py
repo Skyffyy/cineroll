@@ -34,17 +34,24 @@ import json
 import math
 import os
 import sys
+import io
 import time
 import urllib.request
+
+# Configure UTF-8 output on Windows
+try:
+    sys.stdout.reconfigure(encoding='utf-8')
+except AttributeError:
+    pass
 
 import pandas as pd
 
 # ════════════════════════════════════════════════════════════════
 #  CONFIG
 # ════════════════════════════════════════════════════════════════
-MIN_VOTES       = 5_000    # minimum IMDb vote count (lower = more obscure films)
-MIN_RATING      = 5.5      # minimum IMDb average rating
-PER_GENRE_LIMIT = 1_000    # max movies to keep per genre (before dedup)
+MIN_VOTES       = 500      # minimum IMDb vote count (lower = more obscure films)
+MIN_RATING      = 4.5      # minimum IMDb average rating
+PER_GENRE_LIMIT = 100      # max movies to keep per genre (before dedup)
 CACHE_DIR       = "./imdb_cache"
 TEMPLATE        = "cineroll_template.html"
 OUT_FILE        = "cineroll.html"
@@ -96,6 +103,7 @@ def fetch(name: str) -> pd.DataFrame:
     """
     Download (or load from cache) an IMDb .tsv.gz dataset.
     Files are cached locally for 24 hours before re-downloading.
+    Retries up to 3 times on network errors.
     """
     url  = f"https://datasets.imdbws.com/{name}.tsv.gz"
     path = os.path.join(CACHE_DIR, f"{name}.tsv.gz")
@@ -106,12 +114,31 @@ def fetch(name: str) -> pd.DataFrame:
             print(f"  ✓  {name}  (cached {age_h:.0f}h ago)")
         else:
             print(f"  ↻  {name}  (cache expired, re-downloading…)")
-            urllib.request.urlretrieve(url, path, _progress)
-            print()
+            for attempt in range(3):
+                try:
+                    urllib.request.urlretrieve(url, path, _progress)
+                    print()
+                    break
+                except Exception as e:
+                    if attempt < 2:
+                        print(f"\n  ⚠  Download failed, retrying… ({attempt + 1}/3)")
+                        time.sleep(2)
+                    else:
+                        print(f"\n  ⚠  Download failed after 3 attempts, using cache")
+                        break
     else:
         print(f"  ⬇  {name}  (first download…)")
-        urllib.request.urlretrieve(url, path, _progress)
-        print()
+        for attempt in range(3):
+            try:
+                urllib.request.urlretrieve(url, path, _progress)
+                print()
+                break
+            except Exception as e:
+                if attempt < 2:
+                    print(f"\n  ⚠  Download failed, retrying… ({attempt + 1}/3)")
+                    time.sleep(2)
+                else:
+                    raise
 
     with gzip.open(path, "rt", encoding="utf-8") as f:
         return pd.read_csv(f, sep="\t", low_memory=False, na_values=r"\N")
@@ -129,9 +156,10 @@ basics  = fetch("title.basics")   # title, year, genres, runtime
 ratings = fetch("title.ratings")  # averageRating, numVotes
 
 # title.akas — localized titles.  Used to show Russian movie names in RU mode.
-print("\n    Fetching Russian titles (title.akas)…")
+print("\n    Fetching Russian titles (title.akas)…", flush=True)
 try:
     akas = fetch("title.akas")
+    print(f"    Loaded {len(akas):,} rows from title.akas", flush=True)
     ru_titles = (
         akas[
             (akas["region"] == "RU") &
@@ -141,10 +169,10 @@ try:
         .rename(columns={"titleId": "tconst", "title": "title_ru"})
     )
     has_ru = True
-    print(f"    Found {len(ru_titles):,} Russian titles.")
+    print(f"    Found {len(ru_titles):,} Russian titles.", flush=True)
 except Exception as exc:
     has_ru = False
-    print(f"    Could not load akas ({exc}). Falling back to English titles.")
+    print(f"    Could not load akas ({exc}). Falling back to English titles.", flush=True)
 
 # ════════════════════════════════════════════════════════════════
 #  BASE FILTERING
@@ -261,8 +289,9 @@ for _, row in final.iterrows():
 
     # Two separate HDRezka search URLs so the "Watch" button always searches
     # in the right language — EN search when UI is EN, RU search when UI is RU.
-    rezka_en = HDREZKA + title.replace(" ", "+")
-    rezka_ru = HDREZKA + title_ru.replace(" ", "+")
+    # Include year and title for more accurate results
+    rezka_en = HDREZKA + f"{title}+{year}".replace(" ", "+")
+    rezka_ru = HDREZKA + f"{title_ru}+{year}".replace(" ", "+")
 
     records.append({
         "id":       tid,
@@ -299,14 +328,14 @@ with open(TEMPLATE, "r", encoding="utf-8") as f:
 movies_json = json.dumps(records, ensure_ascii=False, separators=(",", ":"))
 html = html.replace("/*MOVIES_DATA*/[]", movies_json)
 
-# Patch hero tag count strings (EN + RU)
+# Patch hero tag count strings
 html = html.replace(
     "tag:  'Real IMDb data'",
     f"tag:  'Real IMDb data · {len(records):,} movies'"
 )
 html = html.replace(
-    "tag:  'Данные IMDb'",
-    f"tag:  'Данные IMDb · {len(records):,} фильмов'"
+    "tag:  'IMDb Data'",
+    f"tag:  'IMDb Data · {len(records):,} movies'"
 )
 
 # Patch page <title>
@@ -322,7 +351,7 @@ size_kb  = os.path.getsize(OUT_FILE) / 1024
 size_mb  = size_kb / 1024
 
 # ════════════════════════════════════════════════════════════════
-#  SUMMARY TABLE
+#  SUMMARY
 # ════════════════════════════════════════════════════════════════
 print("\n" + "═" * 60)
 print("  ✅  Done!")

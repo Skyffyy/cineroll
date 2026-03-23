@@ -521,7 +521,7 @@ const ss = () => {
 // Return the display title for a movie in the current language.
 // If RU is active and a Russian title exists, show it; otherwise English.
 function movieTitle(m) {
-  return (lang === 'ru' && m.title_ru && m.title_ru !== m.title)
+  return (lang === 'ru' && m.title_ru)
     ? m.title_ru
     : m.title;
 }

@@ -49,9 +49,9 @@ import pandas as pd
 # ════════════════════════════════════════════════════════════════
 #  CONFIG
 # ════════════════════════════════════════════════════════════════
-MIN_VOTES       = 500      # minimum IMDb vote count (lower = more obscure films)
-MIN_RATING      = 4.5      # minimum IMDb average rating
-PER_GENRE_LIMIT = 100      # max movies to keep per genre (before dedup)
+MIN_VOTES       = 100      # minimum IMDb vote count (lower = more obscure films)
+MIN_RATING      = 3.5      # minimum IMDb average rating
+PER_GENRE_LIMIT = 300      # max movies to keep per genre (before dedup)
 CACHE_DIR       = "./imdb_cache"
 TEMPLATE        = "cineroll_template.html"
 OUT_FILE        = "cineroll.html"
@@ -161,10 +161,7 @@ try:
     akas = fetch("title.akas")
     print(f"    Loaded {len(akas):,} rows from title.akas", flush=True)
     ru_titles = (
-        akas[
-            (akas["region"] == "RU") &
-            (akas["isOriginalTitle"] == 0)
-        ][["titleId", "title"]]
+        akas[akas["region"] == "RU"][["titleId", "title"]]
         .drop_duplicates("titleId")
         .rename(columns={"titleId": "tconst", "title": "title_ru"})
     )
@@ -246,6 +243,33 @@ for genre in all_genres:
     selected_ids.update(new_ids)
     genre_stats[genre] = len(genre_df)
     print(f"    {genre:<16}  {len(genre_df):>5} selected  ({len(new_ids):>5} new after dedup)")
+
+# ════════════════════════════════════════════════════════════════
+#  ADD BONUS HIGH-RATED MOVIES (9+ rating)
+# ════════════════════════════════════════════════════════════════
+print("\n  Adding bonus high-rated movies (9+)…")
+HIGH_RATED_LIMIT = 100  # Add up to 100 per genre with 9+ rating
+
+high_rated = base[base["averageRating"] >= 9.0].copy()
+print(f"  Found {len(high_rated):,} movies with rating 9+")
+
+expanded_high = high_rated.copy()
+expanded_high["genre_list"] = expanded_high["genres"].str.split(",")
+expanded_high = expanded_high.explode("genre_list")
+expanded_high["genre_list"] = expanded_high["genre_list"].str.strip()
+expanded_high = expanded_high[expanded_high["genre_list"].isin(EMOJI.keys())].copy()
+
+for genre in all_genres:
+    if genre in expanded_high["genre_list"].values:
+        genre_high = (
+            expanded_high[expanded_high["genre_list"] == genre]
+            .nlargest(HIGH_RATED_LIMIT, "averageRating")
+        )
+        new_high_ids = set(genre_high["tconst"].tolist()) - selected_ids
+        selected_ids.update(new_high_ids)
+        genre_stats[genre] += len(new_high_ids)
+        if len(new_high_ids) > 0:
+            print(f"    {genre:<16}  +{len(new_high_ids):>3} high-rated (9+)")
 
 # Build final dataframe from selected IDs, using original base rows
 final = base[base["tconst"].isin(selected_ids)].copy()

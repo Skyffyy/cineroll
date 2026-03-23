@@ -470,6 +470,15 @@ const TR = {
     also_known: 'Also known as',
     rating_line: 'Rating',   on_imdb: 'on IMDb',
     load_more: 'Load more',
+    // Genre names
+    'Action': 'Action',          'Adventure': 'Adventure',         'Animation': 'Animation',
+    'Biography': 'Biography',    'Comedy': 'Comedy',               'Crime': 'Crime',
+    'Documentary': 'Documentary','Drama': 'Drama',                 'Family': 'Family',
+    'Fantasy': 'Fantasy',        'Film-Noir': 'Film-Noir',         'History': 'History',
+    'Horror': 'Horror',          'Music': 'Music',                 'Musical': 'Musical',
+    'Mystery': 'Mystery',        'Romance': 'Romance',             'Sci-Fi': 'Sci-Fi',
+    'Sport': 'Sport',            'Thriller': 'Thriller',           'War': 'War',
+    'Western': 'Western',
   },
   ru: {
     nav_home: 'Главная',    nav_catalog: 'Каталог',  nav_watchlist: 'Список',
@@ -494,6 +503,15 @@ const TR = {
     also_known: 'Оригинальное название',
     rating_line: 'Рейтинг',  on_imdb: 'на IMDb',
     load_more: 'Показать ещё',
+    // Genre names
+    'Action': 'Экшн',            'Adventure': 'Приключения',       'Animation': 'Мультфильм',
+    'Biography': 'Биография',    'Comedy': 'Комедия',              'Crime': 'Криминал',
+    'Documentary': 'Документальный','Drama': 'Драма',              'Family': 'Семейный',
+    'Fantasy': 'Фэнтези',        'Film-Noir': 'Структурный',       'History': 'Исторический',
+    'Horror': 'Ужас',            'Music': 'Музыка',                'Musical': 'Мюзикл',
+    'Mystery': 'Мистика',        'Romance': 'Романтика',           'Sci-Fi': 'Научная фантастика',
+    'Sport': 'Спорт',            'Thriller': 'Триллер',            'War': 'Война',
+    'Western': 'Вестерн',
   },
 };
 
@@ -524,6 +542,11 @@ function movieTitle(m) {
   return (lang === 'ru' && m.title_ru)
     ? m.title_ru
     : m.title;
+}
+
+// Return the display genre name in the current language.
+function genreTitle(g) {
+  return t(g) || g;
 }
 
 // Return the HDRezka search URL for the current language.
@@ -572,7 +595,7 @@ function buildFilters() {
   const genres = [...new Set(MOVIES.map(m => m.genre))].sort();
   document.getElementById('f-genre').innerHTML =
     `<option value="">${t('ag')}</option>` +
-    genres.map(g => `<option value="${g}">${g}</option>`).join('');
+    genres.map(g => `<option value="${g}">${genreTitle(g)}</option>`).join('');
 
   document.getElementById('f-year').innerHTML = `
     <option value="">${t('ay')}</option>
@@ -712,7 +735,7 @@ function showCard(m) {
           <span style="font-size:64px">${m.emoji}</span>
         </div>
         <div class="mcard-body">
-          <span class="genre-tag">${m.genre}</span>
+          <span class="genre-tag">${genreTitle(m.genre)}</span>
           <div class="mcard-title">${dispTitle}</div>
           ${subtitle}
           <div class="mcard-year">${m.year}${rt}</div>
@@ -763,7 +786,7 @@ function cardHtml(m) {
   <div class="gcard">
     <div class="gc-poster" style="background:${m.bg}">${m.emoji}</div>
     <div class="gc-body">
-      <div class="gc-genre">${m.genre}</div>
+      <div class="gc-genre">${genreTitle(m.genre)}</div>
       <div class="gc-title">${dispTitle}
         <span style="font-size:11px;color:var(--muted);font-weight:400"> ${m.year}</span>
       </div>
@@ -801,7 +824,7 @@ function renderCatalog() {
   // Rebuild genre tabs
   document.getElementById('gtabs').innerHTML = genres.map(g =>
     `<button class="gtab ${(catGenre === g || (!catGenre && g === all)) ? 'on' : ''}"
-      onclick="setCatGenre('${g}')">${g}</button>`
+      onclick="setCatGenre('${g}')">${genreTitle(g)}</button>`
   ).join('');
 
   // Filter
@@ -892,7 +915,7 @@ function renderWatchlist() {
           ${done ? `<span class="done-tag">${t('done_lbl')}</span>` : ''}
         </div>
         <div class="wl-meta">
-          ${m.year} · ${m.genre} · IMDb ${m.imdb.toFixed(1)} · ${fmt(m.votes)} ${t('votes')}${rt}
+          ${m.year} · ${genreTitle(m.genre)} · IMDb ${m.imdb.toFixed(1)} · ${fmt(m.votes)} ${t('votes')}${rt}
         </div>
       </div>
       <div class="wl-acts">

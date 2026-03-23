@@ -304,7 +304,7 @@ for _, row in final.iterrows():
     emoji    = EMOJI.get(genre, "🎬")
     bg       = BG.get(genre, "#0a0a0a")
     title    = str(row["primaryTitle"])
-    title_ru = str(row["title_ru"]) if pd.notna(row.get("title_ru")) else title
+    title_ru = str(row["title_ru"]) if pd.notna(row["title_ru"]) else title
     year     = int(row["startYear"])
     imdb     = round(float(row["averageRating"]), 1)
     votes    = int(row["numVotes"])

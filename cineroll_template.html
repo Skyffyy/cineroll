@@ -29,7 +29,6 @@ body {
   font-family: 'Outfit', sans-serif;
   min-height: 100vh; overflow-x: hidden;
 }
-/* subtle dot grid background */
 body::before {
   content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
   background-image:
@@ -56,38 +55,41 @@ nav {
 .hamburger span {
   width: 24px; height: 2px; background: var(--muted2); border-radius: 2px; transition: all .3s;
 }
-.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(10px, 10px); }
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
 .hamburger.open span:nth-child(2) { opacity: 0; }
-.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
 .mobile-menu {
-  display: none; position: absolute; top: 60px; right: 0; left: 0; background: rgba(9,9,11,.95);
-  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-  flex-direction: column; padding: 1rem; gap: 0;
+  display: none; position: fixed; top: 60px; right: 0; left: 0; 
+  background: rgba(9,9,11,.98); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  flex-direction: column; padding: 1rem; gap: 4px;
   z-index: 250;
 }
 .mobile-menu.open { display: flex; }
 .mobile-menu .nav-btn {
-  width: 100%; text-align: left; padding: 1rem; border-radius: 0;
+  width: 100%; text-align: left; padding: 14px; border-radius: 10px;
   color: var(--muted2); border: none; justify-content: flex-start;
 }
 .mobile-menu .nav-btn:hover { background: var(--bg3); }
 .mobile-menu .nav-btn.active { background: rgba(230,57,70,.1); color: var(--accent); }
+
 .nav-btn {
   padding: 6px 16px; background: transparent;
   border: 1px solid transparent; border-radius: 8px;
   color: var(--muted2); font-family: 'Outfit', sans-serif;
   font-size: 14px; font-weight: 500; cursor: pointer; transition: all .18s;
+  display: flex; align-items: center;
 }
 .nav-btn:hover  { color: var(--text); background: var(--bg3); }
 .nav-btn.active { color: var(--text); background: var(--bg3); border-color: var(--border2); }
-/* watchlist counter badge */
+
 .wl-badge {
   display: none; align-items: center; justify-content: center;
-  min-width: 18px; height: 18px; padding: 0 5px; margin-left: 4px;
+  min-width: 18px; height: 18px; padding: 0 5px; margin-left: 6px;
   background: var(--accent); color: #fff;
   font-size: 10px; font-weight: 700; border-radius: 9px;
 }
-/* RU / EN toggle */
 .lang-toggle {
   display: flex; background: var(--bg3);
   border: 1px solid var(--border2); border-radius: 8px; overflow: hidden; margin-left: 8px;
@@ -98,7 +100,6 @@ nav {
   font-size: 12px; font-weight: 500; letter-spacing: .05em; cursor: pointer; transition: all .15s;
 }
 .lang-btn.on  { background: var(--accent); color: #fff; }
-.lang-btn:not(.on):hover { color: var(--text); }
 
 /* ── Page visibility ──────────────────────────────────────────── */
 .page { display: none; position: relative; z-index: 1; }
@@ -120,7 +121,6 @@ nav {
   font-size: clamp(2.6rem, 5.5vw, 4.2rem); font-weight: 800;
   line-height: 1.06; letter-spacing: -.04em; margin-bottom: 1rem;
 }
-/* outlined accent text in heading */
 .hero-h .ghost { -webkit-text-stroke: 1.5px var(--accent); color: transparent; }
 .hero-sub { font-size: 1rem; color: var(--muted2); line-height: 1.75; max-width: 460px; margin: 0 auto 2.5rem; }
 
@@ -140,7 +140,6 @@ select {
   cursor: pointer; transition: border-color .2s;
 }
 select:focus { outline: none; border-color: var(--accent); }
-select option { background: #1a1a1f; }
 
 /* ── Random roll button ───────────────────────────────────────── */
 .roll-btn {
@@ -179,7 +178,6 @@ select option { background: #1a1a1f; }
   display: flex; align-items: center; justify-content: center;
   font-size: 64px; position: relative; overflow: hidden;
 }
-/* fade poster into card body */
 .mcard-poster::after {
   content: ''; position: absolute; inset: 0;
   background: linear-gradient(to right, transparent 50%, var(--bg2));
@@ -192,10 +190,8 @@ select option { background: #1a1a1f; }
   color: var(--accent); letter-spacing: .05em; text-transform: uppercase; margin-bottom: .75rem;
 }
 .mcard-title { font-size: 1.45rem; font-weight: 800; letter-spacing: -.02em; line-height: 1.15; margin-bottom: .25rem; }
-/* small subtitle shown when RU title differs from EN */
 .mcard-title-sub { font-size: .85rem; color: var(--muted2); font-weight: 400; margin-bottom: .25rem; }
 .mcard-year { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); margin-bottom: .9rem; }
-/* IMDb rating chips */
 .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1rem; align-items: center; }
 .chip {
   display: inline-flex; align-items: center; gap: 6px;
@@ -208,7 +204,6 @@ select option { background: #1a1a1f; }
 .mcard-desc { font-size: 14px; line-height: 1.75; color: var(--muted2); flex: 1; margin-bottom: 1.25rem; }
 .mcard-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
-/* action buttons */
 .btn-save {
   flex: 1; min-width: 110px; padding: 10px 18px;
   background: linear-gradient(135deg, #e63946, #ff6b6b);
@@ -226,15 +221,12 @@ select option { background: #1a1a1f; }
   cursor: pointer; transition: all .15s; white-space: nowrap;
 }
 .bl-rezka { background: rgba(230,57,70,.08); border: 1px solid rgba(230,57,70,.25); color: var(--accent); }
-.bl-rezka:hover { background: rgba(230,57,70,.18); }
 .bl-imdb  { background: rgba(245,197,24,.08); border: 1px solid rgba(245,197,24,.25); color: var(--imdb); }
-.bl-imdb:hover  { background: rgba(245,197,24,.18); }
 .btn-again {
   padding: 10px 15px; background: transparent; border: 1px solid var(--border2);
   border-radius: 10px; color: var(--muted2); font-family: 'Outfit', sans-serif;
   font-size: 13px; font-weight: 500; cursor: pointer; transition: all .15s; white-space: nowrap;
 }
-.btn-again:hover { color: var(--text); background: var(--bg3); }
 
 /* ── Shared section wrapper ───────────────────────────────────── */
 .sec { max-width: 1160px; margin: 0 auto; padding: 2.5rem 2rem 5rem; }
@@ -244,7 +236,6 @@ select option { background: #1a1a1f; }
   padding: 4px 13px; background: var(--bg3);
   border: 1px solid var(--border2); border-radius: 20px; font-size: 12px; color: var(--muted2);
 }
-/* search input */
 .search-row { margin-bottom: 1.25rem; }
 .search-box {
   width: 100%; padding: 10px 16px;
@@ -252,9 +243,7 @@ select option { background: #1a1a1f; }
   color: var(--text); font-family: 'Outfit', sans-serif; font-size: 14px; transition: border-color .2s;
 }
 .search-box:focus { outline: none; border-color: var(--accent); }
-.search-box::placeholder { color: var(--muted); }
 
-/* ── Genre filter tabs ────────────────────────────────────────── */
 .gtabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.5rem; }
 .gtab {
   padding: 6px 16px; background: transparent;
@@ -262,16 +251,13 @@ select option { background: #1a1a1f; }
   color: var(--muted2); font-family: 'Outfit', sans-serif;
   font-size: 13px; font-weight: 500; cursor: pointer; transition: all .15s;
 }
-.gtab:hover { color: var(--text); border-color: var(--border2); }
 .gtab.on    { background: var(--accent); border-color: var(--accent); color: #fff; }
 
-/* ── Catalog grid ─────────────────────────────────────────────── */
 .mgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); gap: 14px; }
 .gcard {
   background: var(--bg2); border: 1px solid var(--border);
   border-radius: 14px; overflow: hidden; transition: transform .18s, border-color .18s;
 }
-.gcard:hover { transform: translateY(-4px); border-color: var(--border2); }
 .gc-poster { height: 108px; display: flex; align-items: center; justify-content: center; font-size: 44px; }
 .gc-body   { padding: 10px 13px 13px; }
 .gc-genre  { font-size: 10px; font-weight: 600; color: var(--accent); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 4px; }
@@ -279,43 +265,35 @@ select option { background: #1a1a1f; }
   font-size: 13px; font-weight: 700; line-height: 1.3; margin-bottom: 6px;
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
-.gc-rats   { display: flex; gap: 5px; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
 .gr-imdb   { font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 2px 7px; border-radius: 5px; font-weight: 600; background: rgba(245,197,24,.12); color: var(--imdb); }
-.gr-votes  { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); }
 .gc-foot   { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
 .gc-watch  {
   font-size: 11px; font-weight: 600; color: var(--accent); text-decoration: none;
   padding: 4px 9px; border: 1px solid rgba(230,57,70,.25); border-radius: 7px;
   background: rgba(230,57,70,.06); transition: all .15s; white-space: nowrap;
 }
-.gc-watch:hover { background: rgba(230,57,70,.16); }
 .gc-save {
   width: 30px; height: 30px; background: var(--bg3);
   border: 1px solid var(--border); border-radius: 8px;
   cursor: pointer; display: flex; align-items: center; justify-content: center;
   font-size: 16px; transition: all .15s; flex-shrink: 0;
 }
-.gc-save:hover { border-color: var(--accent); background: rgba(230,57,70,.1); }
-.gc-save.saved { background: rgba(34,197,94,.1); border-color: rgba(34,197,94,.3); }
+.gc-save.saved { background: rgba(34,197,94,.1); border-color: rgba(34,197,94,.3); color: var(--green); }
 
 /* ── Watchlist page ───────────────────────────────────────────── */
 .wl-empty { text-align: center; padding: 5rem 2rem; color: var(--muted); }
 .wl-empty-ico { font-size: 56px; margin-bottom: 1rem; }
-.wl-empty h3  { font-size: 1.1rem; font-weight: 700; color: var(--muted2); margin-bottom: .5rem; }
-.wl-empty p   { font-size: 14px; line-height: 1.65; }
 .wl-list { display: flex; flex-direction: column; gap: 10px; }
 .wl-item {
   display: flex; align-items: center; gap: 14px;
   padding: 14px 18px; background: var(--bg2);
   border: 1px solid var(--border); border-radius: 14px; transition: border-color .15s;
 }
-.wl-item:hover      { border-color: var(--border2); }
 .wl-item.done-item  { opacity: .45; }
 .wl-ico  { font-size: 30px; flex-shrink: 0; }
 .wl-info { flex: 1; min-width: 0; }
 .wl-name { font-size: 15px; font-weight: 700; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .wl-meta { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); }
-/* "watched" label on watchlist items */
 .done-tag {
   font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px;
   background: rgba(34,197,94,.1); border: 1px solid rgba(34,197,94,.2);
@@ -327,7 +305,6 @@ select option { background: #1a1a1f; }
   padding: 5px 10px; border: 1px solid rgba(230,57,70,.25); border-radius: 8px;
   background: rgba(230,57,70,.06); transition: all .15s; white-space: nowrap;
 }
-.wl-watch:hover { background: rgba(230,57,70,.15); }
 .wl-chk {
   width: 32px; height: 32px; border-radius: 50%;
   border: 1.5px solid var(--border2); background: transparent;
@@ -335,14 +312,12 @@ select option { background: #1a1a1f; }
   display: flex; align-items: center; justify-content: center; transition: all .15s; flex-shrink: 0;
 }
 .wl-chk.done { background: var(--green); border-color: var(--green); color: #fff; }
-.wl-chk:hover:not(.done) { border-color: var(--green); color: var(--green); }
 .wl-del {
   width: 32px; height: 32px; border-radius: 8px;
   border: 1px solid var(--border); background: transparent;
   color: var(--muted); font-size: 17px; cursor: pointer;
   display: flex; align-items: center; justify-content: center; transition: all .15s; flex-shrink: 0;
 }
-.wl-del:hover { color: var(--accent); border-color: rgba(230,57,70,.3); background: rgba(230,57,70,.08); }
 
 /* ── Toast notification ───────────────────────────────────────── */
 .toast {
@@ -364,24 +339,23 @@ select option { background: #1a1a1f; }
   .mcard-poster::after { background: linear-gradient(to bottom, transparent 55%, var(--bg2)); }
   .sec  { padding: 2rem 1rem 3rem; }
   .mgrid { grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); }
-  .nav-lbl { display: none; }
+  .nav-lbl { display: block; } /* Ensure labels are visible in mobile menu */
 }
 </style>
 </head>
 <body>
 <div class="toast" id="toast"></div>
 
-<!-- ════════ NAVBAR ════════ -->
 <nav>
   <div class="logo" onclick="goPage('home')">Cine<em>Roll</em></div>
   <div class="nav-links" id="nav-desktop">
-    <button class="nav-btn active" id="nav-home"      onclick="goPage('home')">
+    <button class="nav-btn active" id="nav-home" onclick="goPage('home')">
       <span class="nav-lbl" data-t="nav_home">Home</span>
     </button>
-    <button class="nav-btn"        id="nav-catalog"   onclick="goPage('catalog')">
+    <button class="nav-btn" id="nav-catalog" onclick="goPage('catalog')">
       <span class="nav-lbl" data-t="nav_catalog">Catalog</span>
     </button>
-    <button class="nav-btn"        id="nav-watchlist" onclick="goPage('watchlist')">
+    <button class="nav-btn" id="nav-watchlist" onclick="goPage('watchlist')">
       <span class="nav-lbl" data-t="nav_watchlist">Watchlist</span>
       <span class="wl-badge" id="wl-badge"></span>
     </button>
@@ -399,21 +373,19 @@ select option { background: #1a1a1f; }
   </div>
 </nav>
 
-<!-- Mobile menu -->
 <div class="mobile-menu" id="mobile-menu">
-  <button class="nav-btn active" id="nav-home-mobile" onclick="goPageMobile('home')">
+  <button class="nav-btn active" id="nav-home-mobile" onclick="goPage('home')">
     <span class="nav-lbl" data-t="nav_home">Home</span>
   </button>
-  <button class="nav-btn" id="nav-catalog-mobile" onclick="goPageMobile('catalog')">
+  <button class="nav-btn" id="nav-catalog-mobile" onclick="goPage('catalog')">
     <span class="nav-lbl" data-t="nav_catalog">Catalog</span>
   </button>
-  <button class="nav-btn" id="nav-watchlist-mobile" onclick="goPageMobile('watchlist')">
+  <button class="nav-btn" id="nav-watchlist-mobile" onclick="goPage('watchlist')">
     <span class="nav-lbl" data-t="nav_watchlist">Watchlist</span>
     <span class="wl-badge" id="wl-badge-mobile"></span>
   </button>
 </div>
 
-<!-- ════════ HOME ════════ -->
 <div class="page active" id="page-home">
   <div class="hero">
     <div class="hero-tag" data-t="tag">Real IMDb data</div>
@@ -441,7 +413,6 @@ select option { background: #1a1a1f; }
   </div>
 </div>
 
-<!-- ════════ CATALOG ════════ -->
 <div class="page" id="page-catalog">
   <div class="sec">
     <div class="sec-hdr">
@@ -453,12 +424,11 @@ select option { background: #1a1a1f; }
     </div>
     <div class="gtabs" id="gtabs"></div>
     <div class="mgrid" id="cat-grid"></div>
-    <!-- Load More button — shown when there are more results to display -->
     <div id="load-more-wrap" style="display:none;text-align:center;margin-top:2rem">
       <button id="load-more-btn" onclick="loadMore()"
         style="padding:10px 32px;background:transparent;border:1px solid var(--border2);
                border-radius:50px;color:var(--muted2);font-family:'Outfit',sans-serif;
-               font-size:14px;font-weight:500;cursor:pointer;transition:all .18s">
+               font-size:14px;font-weight:500;cursor:pointer;">
         <span data-t="load_more">Load more</span>
         <span id="load-more-count" style="margin-left:6px;font-size:12px;color:var(--muted)"></span>
       </button>
@@ -466,7 +436,6 @@ select option { background: #1a1a1f; }
   </div>
 </div>
 
-<!-- ════════ WATCHLIST ════════ -->
 <div class="page" id="page-watchlist">
   <div class="sec">
     <div class="sec-hdr">
@@ -479,127 +448,118 @@ select option { background: #1a1a1f; }
 
 <script>
 // ════════════════════════════════════════════════════════════════
-// MOVIE DATA
-// Injected by build_cineroll.py — do not edit this line manually.
-// Each movie object has:
-//   id, title (EN), title_ru (RU or same as title), year, genre,
-//   emoji, bg, imdb, votes, runtime, imdbUrl, rezka_en, rezka_ru
+// MOVIE DATA (Placeholder for injection)
 // ════════════════════════════════════════════════════════════════
 const MOVIES = /*MOVIES_DATA*/[];
 
 // ════════════════════════════════════════════════════════════════
-// TRANSLATIONS  (UI strings only — movie titles come from data)
+// UI TRANSLATIONS
 // ════════════════════════════════════════════════════════════════
 const TR = {
   en: {
-    nav_home: 'Home',       nav_catalog: 'Catalog',  nav_watchlist: 'Watchlist',
-    tag:  'Real IMDb data',
-    h1:   "Can't decide<br>what to <span class='ghost'>watch?</span>",
-    sub:  "Pick a genre, year and rating — or just hit the button and we'll choose for you",
-    l_genre: 'Genre',  l_year: 'Year',  l_rating: 'IMDb Rating',
-    ag: 'Any genre',   ay: 'Any year',  ar: 'Any rating',
-    y1: '2020 – today',   y2: '2015 – 2019', y3: '2010 – 2014',
-    y4: '2000 – 2009',    y5: 'Before 2000',
-    roll_btn: 'Random Movie',
-    bs: '+ Watchlist',  bsaved: '✓ Saved',
-    bwatch: '▶ Watch',  bimdb: 'IMDb →',  bother: 'Another →',
-    cat_title: 'Movie Catalog',  fc: 'movies',
-    wl_title: 'Watchlist',
-    we_h: 'Your list is empty',
-    we_p: 'Add movies via the random pick or from the catalog',
-    done_lbl: 'watched',
-    ta: '✓ Added to watchlist',  tr: 'Removed from watchlist',
-    tab_all: 'All',   mark: 'Mark as watched',
-    votes: 'votes',   mins: 'min',   search_ph: 'Search by title…',
-    also_known: 'Also known as',
-    rating_line: 'Rating',   on_imdb: 'on IMDb',
-    load_more: 'Load more',
-    // Genre names
-    'Action': 'Action',          'Adventure': 'Adventure',         'Animation': 'Animation',
-    'Biography': 'Biography',    'Comedy': 'Comedy',               'Crime': 'Crime',
-    'Documentary': 'Documentary','Drama': 'Drama',                 'Family': 'Family',
-    'Fantasy': 'Fantasy',        'Film-Noir': 'Film-Noir',         'History': 'History',
-    'Horror': 'Horror',          'Music': 'Music',                 'Musical': 'Musical',
-    'Mystery': 'Mystery',        'Romance': 'Romance',             'Sci-Fi': 'Sci-Fi',
-    'Sport': 'Sport',            'Thriller': 'Thriller',           'War': 'War',
-    'Western': 'Western',
+    nav_home: 'Home', nav_catalog: 'Catalog', nav_watchlist: 'Watchlist',
+    tag: 'Real IMDb data',
+    h1: "Can't decide<br>what to <span class='ghost'>watch?</span>",
+    sub: "Pick a genre, year and rating — or just hit the button and we'll choose for you",
+    l_genre: 'Genre', l_year: 'Year', l_rating: 'IMDb Rating',
+    ag: 'Any genre', ay: 'Any year', ar: 'Any rating',
+    y1: '2020 – today', y2: '2015 – 2019', y3: '2010 – 2014', y4: '2000 – 2009', y5: 'Before 2000',
+    roll_btn: 'Random Movie', bs: '+ Watchlist', bsaved: '✓ Saved',
+    bwatch: '▶ Watch', bimdb: 'IMDb →', bother: 'Another →',
+    cat_title: 'Movie Catalog', fc: 'movies', wl_title: 'Watchlist',
+    we_h: 'Your list is empty', we_p: 'Add movies via the random pick or from the catalog',
+    done_lbl: 'watched', ta: '✓ Added to watchlist', tr: 'Removed from watchlist',
+    tab_all: 'All', mark: 'Mark as watched', votes: 'votes', mins: 'min',
+    search_ph: 'Search by title…', also_known: 'Also known as',
+    rating_line: 'Rating', on_imdb: 'on IMDb', load_more: 'Load more',
+    'Action': 'Action', 'Adventure': 'Adventure', 'Animation': 'Animation', 'Biography': 'Biography',
+    'Comedy': 'Comedy', 'Crime': 'Crime', 'Documentary': 'Documentary', 'Drama': 'Drama',
+    'Family': 'Family', 'Fantasy': 'Fantasy', 'Film-Noir': 'Film-Noir', 'History': 'History',
+    'Horror': 'Horror', 'Music': 'Music', 'Musical': 'Musical', 'Mystery': 'Mystery',
+    'Romance': 'Romance', 'Sci-Fi': 'Sci-Fi', 'Sport': 'Sport', 'Thriller': 'Thriller',
+    'War': 'War', 'Western': 'Western',
   },
   ru: {
-    nav_home: 'Главная',    nav_catalog: 'Каталог',  nav_watchlist: 'Список',
-    tag:  'Данные IMDb',
-    h1:   'Не знаешь<br>что <span class="ghost">посмотреть?</span>',
-    sub:  'Выбери жанр, год и рейтинг — или нажми кнопку, и мы выберем за тебя',
-    l_genre: 'Жанр',   l_year: 'Год',   l_rating: 'Рейтинг IMDb',
-    ag: 'Любой жанр',  ay: 'Любой год', ar: 'Любой рейтинг',
-    y1: '2020 – сегодня', y2: '2015 – 2019', y3: '2010 – 2014',
-    y4: '2000 – 2009',    y5: 'До 2000',
-    roll_btn: 'Случайный фильм',
-    bs: '+ В список',   bsaved: '✓ В списке',
+    nav_home: 'Главная', nav_catalog: 'Каталог', nav_watchlist: 'Список',
+    tag: 'Данные IMDb',
+    h1: 'Не знаешь<br>что <span class="ghost">посмотреть?</span>',
+    sub: 'Выбери жанр, год и рейтинг — или нажми кнопку, и мы выберем за тебя',
+    l_genre: 'Жанр', l_year: 'Год', l_rating: 'Рейтинг IMDb',
+    ag: 'Любой жанр', ay: 'Любой год', ar: 'Любой рейтинг',
+    y1: '2020 – сегодня', y2: '2015 – 2019', y3: '2010 – 2014', y4: '2000 – 2009', y5: 'До 2000',
+    roll_btn: 'Случайный фильм', bs: '+ В список', bsaved: '✓ В списке',
     bwatch: '▶ Смотреть', bimdb: 'IMDb →', bother: 'Другой →',
-    cat_title: 'Каталог фильмов',  fc: 'фильмов',
-    wl_title: 'Список просмотра',
-    we_h: 'Список пуст',
-    we_p: 'Добавляй фильмы через случайный выбор или из каталога',
-    done_lbl: 'просмотрен',
-    ta: '✓ Добавлено в список',  tr: 'Удалено из списка',
-    tab_all: 'Все',   mark: 'Отметить просмотренным',
-    votes: 'оценок',  mins: 'мин',   search_ph: 'Поиск по названию…',
-    also_known: 'Оригинальное название',
-    rating_line: 'Рейтинг',  on_imdb: 'на IMDb',
-    load_more: 'Показать ещё',
-    // Genre names
-    'Action': 'Экшн',            'Adventure': 'Приключения',       'Animation': 'Мультфильм',
-    'Biography': 'Биография',    'Comedy': 'Комедия',              'Crime': 'Криминал',
-    'Documentary': 'Документальный','Drama': 'Драма',              'Family': 'Семейный',
-    'Fantasy': 'Фэнтези',        'Film-Noir': 'Структурный',       'History': 'Исторический',
-    'Horror': 'Ужас',            'Music': 'Музыка',                'Musical': 'Мюзикл',
-    'Mystery': 'Мистика',        'Romance': 'Романтика',           'Sci-Fi': 'Научная фантастика',
-    'Sport': 'Спорт',            'Thriller': 'Триллер',            'War': 'Война',
-    'Western': 'Вестерн',
-  },
+    cat_title: 'Каталог фильмов', fc: 'фильмов', wl_title: 'Список просмотра',
+    we_h: 'Список пуст', we_p: 'Добавляй фильмы через случайный выбор или из каталога',
+    done_lbl: 'просмотрен', ta: '✓ Добавлено в список', tr: 'Удалено из списка',
+    tab_all: 'Все', mark: 'Отметить просмотренным', votes: 'оценок', mins: 'мин',
+    search_ph: 'Поиск по названию…', also_known: 'Оригинальное название',
+    rating_line: 'Рейтинг', on_imdb: 'на IMDb', load_more: 'Показать ещё',
+    'Action': 'Экшн', 'Adventure': 'Приключения', 'Animation': 'Мультфильм', 'Biography': 'Биография',
+    'Comedy': 'Комедия', 'Crime': 'Криминал', 'Documentary': 'Документальный', 'Drama': 'Драма',
+    'Family': 'Семейный', 'Fantasy': 'Фэнтези', 'Film-Noir': 'Нуар', 'History': 'Исторический',
+    'Horror': 'Ужас', 'Music': 'Музыка', 'Musical': 'Мюзикл', 'Mystery': 'Мистика',
+    'Romance': 'Романтика', 'Sci-Fi': 'Научная фантастика', 'Sport': 'Спорт', 'Thriller': 'Триллер',
+    'War': 'Война', 'Western': 'Вестерн',
+  }
 };
 
 // ════════════════════════════════════════════════════════════════
-// STATE
+// APP STATE
 // ════════════════════════════════════════════════════════════════
 let lang      = localStorage.getItem('cr_lang') || 'en';
 let watchlist = JSON.parse(localStorage.getItem('cr_wl')   || '[]');
 let watched   = JSON.parse(localStorage.getItem('cr_done') || '[]');
-let catGenre  = '';   // current genre filter in catalog
-let lastId    = null; // last rolled movie id (for lang switch re-render)
+let catGenre  = '';   
+let lastId    = null; 
 
-// shorthand translation getter
 const t  = k => TR[lang][k] ?? k;
-// persist watchlist + watched to localStorage
 const ss = () => {
   localStorage.setItem('cr_wl',   JSON.stringify(watchlist));
   localStorage.setItem('cr_done', JSON.stringify(watched));
 };
 
 // ════════════════════════════════════════════════════════════════
-// LANGUAGE HELPERS
+// CORE LOGIC & NAVIGATION
 // ════════════════════════════════════════════════════════════════
 
-// Return the display title for a movie in the current language.
-// If RU is active and a Russian title exists, show it; otherwise English.
-function movieTitle(m) {
-  return (lang === 'ru' && m.title_ru)
-    ? m.title_ru
-    : m.title;
+// Switch page and update both Desktop & Mobile navigation highlights
+function goPage(name) {
+  // Reset all pages and buttons
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  
+  // Activate target page
+  const targetPage = document.getElementById('page-' + name);
+  if (targetPage) targetPage.classList.add('active');
+  
+  // Highlight buttons for both menus
+  const desktopBtn = document.getElementById('nav-' + name);
+  const mobileBtn  = document.getElementById('nav-' + name + '-mobile');
+  if (desktopBtn) desktopBtn.classList.add('active');
+  if (mobileBtn)  mobileBtn.classList.add('active');
+
+  // Trigger page-specific rendering
+  if (name === 'catalog')   renderCatalog();
+  if (name === 'watchlist') renderWatchlist();
+  
+  updateBadge();
+  closeMobileMenu();
+  window.scrollTo(0, 0); // Reset scroll to top
 }
 
-// Return the display genre name in the current language.
-function genreTitle(g) {
-  return t(g) || g;
+function toggleMenuMobile() {
+  const hamburger = document.getElementById('hamburger');
+  const menu = document.getElementById('mobile-menu');
+  hamburger.classList.toggle('open');
+  menu.classList.toggle('open');
 }
 
-// Return the HDRezka search URL for the current language.
-// When RU is active use the Russian title for better search results.
-function rezkaUrl(m) {
-  return (lang === 'ru' && m.rezka_ru) ? m.rezka_ru : m.rezka_en;
+function closeMobileMenu() {
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobile-menu').classList.remove('open');
 }
 
-// Apply all data-t text nodes and data-ph placeholders
 function applyLang() {
   document.querySelectorAll('[data-t]').forEach(el => {
     const v = TR[lang][el.dataset.t];
@@ -613,59 +573,36 @@ function applyLang() {
   updateBadge();
 }
 
-// Switch language and re-render whatever is currently visible
 function setLang(l) {
   lang = l;
   localStorage.setItem('cr_lang', l);
   document.getElementById('lb-en').className = 'lang-btn' + (l === 'en' ? ' on' : '');
   document.getElementById('lb-ru').className = 'lang-btn' + (l === 'ru' ? ' on' : '');
-  catGenre = ''; // reset genre tab (genre names may differ in the future)
+  catGenre = ''; 
   applyLang();
-  // re-render active page
-  if (document.getElementById('page-catalog').classList.contains('active'))   renderCatalog();
-  if (document.getElementById('page-watchlist').classList.contains('active')) renderWatchlist();
-  // re-render the result card so title + watch-link update
-  if (lastId) {
-    const m = byId(lastId);
-    if (m) showCard(m);
-  }
+  
+  const activePage = document.querySelector('.page.active').id;
+  if (activePage === 'page-catalog')   renderCatalog();
+  if (activePage === 'page-watchlist') renderWatchlist();
+  if (lastId) showCard(byId(lastId));
 }
 
 // ════════════════════════════════════════════════════════════════
-// FILTER DROPDOWNS
-// ════════════════════════════════════════════════════════════════
-function buildFilters() {
-  // genre options derived from dataset
-  const genres = [...new Set(MOVIES.map(m => m.genre))].sort();
-  document.getElementById('f-genre').innerHTML =
-    `<option value="">${t('ag')}</option>` +
-    genres.map(g => `<option value="${g}">${genreTitle(g)}</option>`).join('');
-
-  document.getElementById('f-year').innerHTML = `
-    <option value="">${t('ay')}</option>
-    <option value="2020">${t('y1')}</option>
-    <option value="2015">${t('y2')}</option>
-    <option value="2010">${t('y3')}</option>
-    <option value="2000">${t('y4')}</option>
-    <option value="1900">${t('y5')}</option>`;
-
-  document.getElementById('f-rating').innerHTML = `
-    <option value="0">${t('ar')}</option>
-    <option value="9">IMDb 9.0+</option>
-    <option value="8">IMDb 8.0+</option>
-    <option value="7">IMDb 7.0+</option>
-    <option value="6">IMDb 6.0+</option>`;
-}
-
-// ════════════════════════════════════════════════════════════════
-// UTILITIES
+// HELPERS
 // ════════════════════════════════════════════════════════════════
 const byId = id => MOVIES.find(m => m.id === id);
+const movieTitle = m => (lang === 'ru' && m.title_ru) ? m.title_ru : m.title;
+const genreTitle = g => t(g) || g;
+const rezkaUrl   = m => (lang === 'ru' && m.rezka_ru) ? m.rezka_ru : m.rezka_en;
 
 function updateBadge() {
-  const b = document.getElementById('wl-badge');
-  if (watchlist.length) { b.textContent = watchlist.length; b.style.display = 'inline-flex'; }
-  else b.style.display = 'none';
+  const count = watchlist.length;
+  ['wl-badge', 'wl-badge-mobile'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (count) { el.textContent = count; el.style.display = 'inline-flex'; }
+    else el.style.display = 'none';
+  });
 }
 
 function toast(msg) {
@@ -676,7 +613,6 @@ function toast(msg) {
   el._t = setTimeout(() => el.classList.remove('show'), 2200);
 }
 
-// Format large vote counts: 1234567 → "1.2M", 234000 → "234K"
 function fmt(n) {
   if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M';
   if (n >= 1e3) return Math.round(n / 1e3) + 'K';
@@ -684,320 +620,185 @@ function fmt(n) {
 }
 
 // ════════════════════════════════════════════════════════════════
-// NAVIGATION
+// ROLLER & CATALOG RENDERING
 // ════════════════════════════════════════════════════════════════
-function goPage(name) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('page-' + name).classList.add('active');
-  document.getElementById('nav-'  + name).classList.add('active');
-  if (document.getElementById('nav-' + name + '-mobile')) {
-    document.getElementById('nav-' + name + '-mobile').classList.add('active');
-  }
-  if (name === 'catalog')   renderCatalog();
-  if (name === 'watchlist') renderWatchlist();
-  updateBadge();
-  closeMobileMenu();
+function buildFilters() {
+  const genres = [...new Set(MOVIES.map(m => m.genre))].sort();
+  document.getElementById('f-genre').innerHTML = `<option value="">${t('ag')}</option>` +
+    genres.map(g => `<option value="${g}">${genreTitle(g)}</option>`).join('');
+
+  document.getElementById('f-year').innerHTML = `
+    <option value="">${t('ay')}</option>
+    <option value="2020">${t('y1')}</option>
+    <option value="2015">${t('y2')}</option>
+    <option value="2010">${t('y3')}</option>
+    <option value="2000">${t('y4')}</option>
+    <option value="1900">${t('y5')}</option>`;
+
+  document.getElementById('f-rating').innerHTML = `<option value="0">${t('ar')}</option>` +
+    [9,8,7,6].map(r => `<option value="${r}">IMDb ${r}.0+</option>`).join('');
 }
 
-function goPageMobile(name) {
-  goPage(name);
-}
-
-function toggleMenuMobile() {
-  const hamburger = document.getElementById('hamburger');
-  const menu = document.getElementById('mobile-menu');
-  hamburger.classList.toggle('open');
-  menu.classList.toggle('open');
-}
-
-function closeMobileMenu() {
-  const hamburger = document.getElementById('hamburger');
-  const menu = document.getElementById('mobile-menu');
-  hamburger.classList.remove('open');
-  menu.classList.remove('open');
-}
-
-// ════════════════════════════════════════════════════════════════
-// WATCHLIST TOGGLE
-// ════════════════════════════════════════════════════════════════
-function toggleSave(id) {
-  const i = watchlist.indexOf(id);
-  if (i === -1) { watchlist.push(id); toast(t('ta')); }
-  else { watchlist.splice(i, 1); watched = watched.filter(w => w !== id); toast(t('tr')); }
-  ss();
-  updateBadge();
-  // update every save button that references this movie
-  document.querySelectorAll(`[data-sid="${id}"]`).forEach(b => {
-    const s = watchlist.includes(id);
-    b.className  = 'btn-save' + (s ? ' saved' : '');
-    b.textContent = s ? t('bsaved') : t('bs');
-  });
-  document.querySelectorAll(`[data-gsave="${id}"]`).forEach(b => {
-    const s = watchlist.includes(id);
-    b.className  = 'gc-save' + (s ? ' saved' : '');
-    b.textContent = s ? '✓' : '+';
-  });
-}
-
-function toggleDone(id) {
-  const i = watched.indexOf(id);
-  if (i === -1) watched.push(id); else watched.splice(i, 1);
-  ss();
-  renderWatchlist();
-}
-
-// ════════════════════════════════════════════════════════════════
-// RANDOM ROLL (Home page)
-// ════════════════════════════════════════════════════════════════
-function getPool() {
-  const genre  = document.getElementById('f-genre').value;
-  const yearV  = document.getElementById('f-year').value;
-  const rat    = parseFloat(document.getElementById('f-rating').value) || 0;
+function doRoll() {
+  const genre = document.getElementById('f-genre').value;
+  const yearV = document.getElementById('f-year').value;
+  const rat   = parseFloat(document.getElementById('f-rating').value) || 0;
+  
   let pool = [...MOVIES];
   if (genre) pool = pool.filter(m => m.genre === genre);
-  if      (yearV === '2020') pool = pool.filter(m => m.year >= 2020);
+  if (yearV === '2020')      pool = pool.filter(m => m.year >= 2020);
   else if (yearV === '2015') pool = pool.filter(m => m.year >= 2015 && m.year < 2020);
   else if (yearV === '2010') pool = pool.filter(m => m.year >= 2010 && m.year < 2015);
   else if (yearV === '2000') pool = pool.filter(m => m.year >= 2000 && m.year < 2010);
   else if (yearV === '1900') pool = pool.filter(m => m.year < 2000);
   if (rat) pool = pool.filter(m => m.imdb >= rat);
-  return pool;
-}
 
-function doRoll() {
-  const pool = getPool();
   if (!pool.length) {
-    document.getElementById('result-area').innerHTML =
-      `<p style="color:var(--muted2);font-size:14px;text-align:center;padding:1rem">
-        😕 ${lang === 'en' ? 'No movies match the selected filters' : 'Нет фильмов по выбранным фильтрам'}
-      </p>`;
-    lastId = null;
+    document.getElementById('result-area').innerHTML = `<p style="text-align:center;padding:1rem;color:var(--muted2)">😕 ${lang==='en'?'No matches':'Нет совпадений'}</p>`;
     return;
   }
-  // animate the dice icon
+  
   const btn = document.getElementById('roll-btn');
   btn.classList.add('spin');
   setTimeout(() => btn.classList.remove('spin'), 520);
   showCard(pool[Math.floor(Math.random() * pool.length)]);
 }
 
-// Render the big result card on the Home page
 function showCard(m) {
   lastId = m.id;
-  const saved    = watchlist.includes(m.id);
-  const dispTitle = movieTitle(m);                   // RU or EN depending on lang
-  const watchLink = rezkaUrl(m);                     // correct HDRezka search URL
-  const rt        = m.runtime > 0 ? ` · ${m.runtime} ${t('mins')}` : '';
-  // show original EN title as subtitle when RU is active and differs
-  const subtitle  = (lang === 'ru' && m.title_ru !== m.title)
-    ? `<div class="mcard-title-sub">${t('also_known')}: ${m.title}</div>`
-    : '';
+  const saved = watchlist.includes(m.id);
+  const subtitle = (lang === 'ru' && m.title_ru !== m.title) ? `<div class="mcard-title-sub">${t('also_known')}: ${m.title}</div>` : '';
+  const rt = m.runtime > 0 ? ` · ${m.runtime} ${t('mins')}` : '';
 
   document.getElementById('result-area').innerHTML = `
-    <div class="card-in">
-      <div class="mcard">
-        <div class="mcard-poster" style="background:${m.bg}">
-          <span style="font-size:64px">${m.emoji}</span>
+    <div class="card-in"><div class="mcard">
+      <div class="mcard-poster" style="background:${m.bg}">${m.emoji}</div>
+      <div class="mcard-body">
+        <span class="genre-tag">${genreTitle(m.genre)}</span>
+        <div class="mcard-title">${movieTitle(m)}</div>${subtitle}
+        <div class="mcard-year">${m.year}${rt}</div>
+        <div class="chips">
+          <div class="chip chip-imdb"><span class="cl">IMDb</span><span class="cv">★ ${m.imdb.toFixed(1)}</span></div>
+          <span class="chip chip-votes">${fmt(m.votes)} ${t('votes')}</span>
         </div>
-        <div class="mcard-body">
-          <span class="genre-tag">${genreTitle(m.genre)}</span>
-          <div class="mcard-title">${dispTitle}</div>
-          ${subtitle}
-          <div class="mcard-year">${m.year}${rt}</div>
-          <div class="chips">
-            <div class="chip chip-imdb">
-              <span class="cl">IMDb</span>
-              <span class="cv">★ ${m.imdb.toFixed(1)}</span>
-            </div>
-            <span class="chip chip-votes">${fmt(m.votes)} ${t('votes')}</span>
-          </div>
-          <p class="mcard-desc">
-            ${t('rating_line')}: <strong>${m.imdb.toFixed(1)}/10</strong>
-            &nbsp;·&nbsp; ${fmt(m.votes)} ${t('votes')} ${t('on_imdb')}${rt}.
-          </p>
-          <div class="mcard-actions">
-            <button class="btn-save ${saved ? 'saved' : ''}" data-sid="${m.id}"
-              onclick="toggleSave('${m.id}')">
-              ${saved ? t('bsaved') : t('bs')}
-            </button>
-            <a class="btn-link bl-rezka" href="${watchLink}" target="_blank" rel="noopener">
-              ${t('bwatch')}
-            </a>
-            <a class="btn-link bl-imdb" href="${m.imdbUrl}" target="_blank" rel="noopener">
-              ${t('bimdb')}
-            </a>
-            <button class="btn-again" onclick="doRoll()">${t('bother')}</button>
-          </div>
+        <p class="mcard-desc">${t('rating_line')}: <strong>${m.imdb.toFixed(1)}/10</strong> · ${fmt(m.votes)} ${t('votes')} ${t('on_imdb')}.</p>
+        <div class="mcard-actions">
+          <button class="btn-save ${saved?'saved':''}" onclick="toggleSave('${m.id}')" data-sid="${m.id}">${saved?t('bsaved'):t('bs')}</button>
+          <a class="btn-link bl-rezka" href="${rezkaUrl(m)}" target="_blank">▶ ${t('bwatch')}</a>
+          <a class="btn-link bl-imdb" href="${m.imdbUrl}" target="_blank">IMDb →</a>
+          <button class="btn-again" onclick="doRoll()">${t('bother')}</button>
         </div>
       </div>
-    </div>`;
+    </div></div>`;
 }
 
-// ════════════════════════════════════════════════════════════════
-// CATALOG PAGE
-// ════════════════════════════════════════════════════════════════
-const ALL_GENRES = [...new Set(MOVIES.map(m => m.genre))].sort();
+// Catalog Pagination logic
+const PAGE_SIZE = 60;
+let catPool = [];
+let catPage = 0;
 
-const PAGE_SIZE  = 60;   // cards rendered per page (keeps DOM lean for 10k+ movies)
-let catPool      = [];   // current filtered+sorted movie list
-let catPage      = 0;    // how many pages have been rendered so far
-
-// Build a single catalog card HTML string
-function cardHtml(m) {
-  const saved     = watchlist.includes(m.id);
-  const dispTitle = movieTitle(m);
-  const watchLink = rezkaUrl(m);
-  return `
-  <div class="gcard">
-    <div class="gc-poster" style="background:${m.bg}">${m.emoji}</div>
-    <div class="gc-body">
-      <div class="gc-genre">${genreTitle(m.genre)}</div>
-      <div class="gc-title">${dispTitle}
-        <span style="font-size:11px;color:var(--muted);font-weight:400"> ${m.year}</span>
-      </div>
-      <div class="gc-rats">
-        <span class="gr-imdb">★ ${m.imdb.toFixed(1)}</span>
-        <span class="gr-votes">${fmt(m.votes)}</span>
-      </div>
-      <div class="gc-foot">
-        <a class="gc-watch" href="${watchLink}" target="_blank" rel="noopener">
-          ▶ ${t('bwatch')}
-        </a>
-        <button class="gc-save ${saved ? 'saved' : ''}" data-gsave="${m.id}"
-          onclick="toggleSave('${m.id}');rerenderSaveBtn('${m.id}');">
-          ${saved ? '✓' : '+'}
-        </button>
-      </div>
-    </div>
-  </div>`;
-}
-
-// Re-render just the save button for a specific movie in the grid (avoids full re-render)
-function rerenderSaveBtn(id) {
-  document.querySelectorAll(`[data-gsave="${id}"]`).forEach(b => {
-    const s = watchlist.includes(id);
-    b.className  = 'gc-save' + (s ? ' saved' : '');
-    b.textContent = s ? '✓' : '+';
-  });
-}
-
-// Full catalog render — resets pagination and shows first page
 function renderCatalog() {
-  const all    = t('tab_all');
-  const genres = [all, ...ALL_GENRES];
-
-  // Rebuild genre tabs
-  document.getElementById('gtabs').innerHTML = genres.map(g =>
-    `<button class="gtab ${(catGenre === g || (!catGenre && g === all)) ? 'on' : ''}"
-      onclick="setCatGenre('${g}')">${genreTitle(g)}</button>`
+  const q = document.getElementById('cat-search').value.toLowerCase().trim();
+  catPool = catGenre ? MOVIES.filter(m => m.genre === catGenre) : [...MOVIES];
+  if (q) catPool = catPool.filter(m => m.title.toLowerCase().includes(q) || (m.title_ru && m.title_ru.toLowerCase().includes(q)));
+  catPool.sort((a, b) => b.imdb - a.imdb || b.votes - a.votes);
+  
+  const genres = [t('tab_all'), ...new Set(MOVIES.map(m => m.genre))].sort();
+  document.getElementById('gtabs').innerHTML = genres.map(g => 
+    `<button class="gtab ${((!catGenre && g === t('tab_all')) || catGenre === g)?'on':''}" onclick="setCatGenre('${g}')">${genreTitle(g)}</button>`
   ).join('');
 
-  // Filter
-  const q = (document.getElementById('cat-search').value || '').toLowerCase().trim();
-  catPool = catGenre ? MOVIES.filter(m => m.genre === catGenre) : [...MOVIES];
-  if (q) {
-    catPool = catPool.filter(m =>
-      m.title.toLowerCase().includes(q) ||
-      (m.title_ru && m.title_ru.toLowerCase().includes(q))
-    );
-  }
-
-  // Sort by IMDb score desc
-  catPool.sort((a, b) => b.imdb - a.imdb || b.votes - a.votes);
-
   document.getElementById('cat-pill').textContent = catPool.length.toLocaleString() + ' ' + t('fc');
-
-  // Reset grid and render first page
   catPage = 0;
   document.getElementById('cat-grid').innerHTML = '';
   appendCatalogPage();
 }
 
-// Append the next PAGE_SIZE cards to the existing grid
 function appendCatalogPage() {
-  const start  = catPage * PAGE_SIZE;
-  const slice  = catPool.slice(start, start + PAGE_SIZE);
-  const grid   = document.getElementById('cat-grid');
-  const wrap   = document.getElementById('load-more-wrap');
-  const count  = document.getElementById('load-more-count');
-
-  grid.insertAdjacentHTML('beforeend', slice.map(cardHtml).join(''));
+  const start = catPage * PAGE_SIZE;
+  const slice = catPool.slice(start, start + PAGE_SIZE);
+  const grid  = document.getElementById('cat-grid');
+  
+  grid.insertAdjacentHTML('beforeend', slice.map(m => {
+    const saved = watchlist.includes(m.id);
+    return `<div class="gcard">
+      <div class="gc-poster" style="background:${m.bg}">${m.emoji}</div>
+      <div class="gc-body">
+        <div class="gc-genre">${genreTitle(m.genre)}</div>
+        <div class="gc-title">${movieTitle(m)} <span style="font-size:11px;color:var(--muted);font-weight:400">${m.year}</span></div>
+        <div class="gc-foot">
+          <a class="gc-watch" href="${rezkaUrl(m)}" target="_blank">▶ ${t('bwatch')}</a>
+          <button class="gc-save ${saved?'saved':''}" onclick="toggleSave('${m.id}'); updateGridBtn('${m.id}')" data-gsave="${m.id}">${saved?'✓':'+'}</button>
+        </div>
+      </div>
+    </div>`;
+  }).join(''));
+  
   catPage++;
-
-  const rendered  = Math.min(catPage * PAGE_SIZE, catPool.length);
-  const remaining = catPool.length - rendered;
-
-  if (remaining > 0) {
-    wrap.style.display  = 'block';
-    count.textContent   = `(${remaining.toLocaleString()} ${t('fc')} ${t('more_left') || 'remaining'})`;
-    // update load-more button label translation
-    const lmBtn = document.querySelector('#load-more-btn [data-t="load_more"]');
-    if (lmBtn) lmBtn.textContent = t('load_more');
-  } else {
-    wrap.style.display = 'none';
-  }
+  const remaining = catPool.length - (catPage * PAGE_SIZE);
+  document.getElementById('load-more-wrap').style.display = remaining > 0 ? 'block' : 'none';
+  if (remaining > 0) document.getElementById('load-more-count').textContent = `(${remaining})`;
 }
 
-// Called by the "Load more" button
-function loadMore() {
-  appendCatalogPage();
-  // smooth scroll isn't needed — just append in place
+function setCatGenre(g) { catGenre = (g === t('tab_all')) ? '' : g; renderCatalog(); }
+function loadMore() { appendCatalogPage(); }
+
+function updateGridBtn(id) {
+  const saved = watchlist.includes(id);
+  document.querySelectorAll(`[data-gsave="${id}"]`).forEach(b => {
+    b.className = 'gc-save' + (saved ? ' saved' : '');
+    b.textContent = saved ? '✓' : '+';
+  });
 }
 
-function setCatGenre(g) {
-  catGenre = (g === t('tab_all')) ? '' : g;
-  renderCatalog();
-}
-
-// ════════════════════════════════════════════════════════════════
-// WATCHLIST PAGE
-// ════════════════════════════════════════════════════════════════
+// Watchlist Logic
 function renderWatchlist() {
   const el = document.getElementById('wl-body');
   document.getElementById('wl-pill').textContent = watchlist.length + ' ' + t('fc');
-
   if (!watchlist.length) {
-    el.innerHTML = `
-      <div class="wl-empty">
-        <div class="wl-empty-ico">🎬</div>
-        <h3>${t('we_h')}</h3>
-        <p>${t('we_p')}</p>
-      </div>`;
+    el.innerHTML = `<div class="wl-empty"><div class="wl-empty-ico">🎬</div><h3>${t('we_h')}</h3><p>${t('we_p')}</p></div>`;
     return;
   }
-
-  const items = watchlist.map(id => byId(id)).filter(Boolean);
-  el.innerHTML = `<div class="wl-list">` + items.map(m => {
-    const done      = watched.includes(m.id);
-    const dispTitle = movieTitle(m);
-    const watchLink = rezkaUrl(m);
-    const rt        = m.runtime > 0 ? ` · ${m.runtime} ${t('mins')}` : '';
-    return `
-    <div class="wl-item ${done ? 'done-item' : ''}">
+  el.innerHTML = `<div class="wl-list">` + watchlist.map(id => {
+    const m = byId(id); if (!m) return '';
+    const done = watched.includes(id);
+    return `<div class="wl-item ${done?'done-item':''}">
       <span class="wl-ico">${m.emoji}</span>
       <div class="wl-info">
-        <div class="wl-name">${dispTitle}
-          ${done ? `<span class="done-tag">${t('done_lbl')}</span>` : ''}
-        </div>
-        <div class="wl-meta">
-          ${m.year} · ${genreTitle(m.genre)} · IMDb ${m.imdb.toFixed(1)} · ${fmt(m.votes)} ${t('votes')}${rt}
-        </div>
+        <div class="wl-name">${movieTitle(m)}${done?`<span class="done-tag">${t('done_lbl')}</span>`:''}</div>
+        <div class="wl-meta">${m.year} · ${genreTitle(m.genre)} · ★ ${m.imdb.toFixed(1)}</div>
       </div>
       <div class="wl-acts">
-        <a class="wl-watch" href="${watchLink}" target="_blank" rel="noopener">▶ ${t('bwatch')}</a>
-        <button class="wl-chk ${done ? 'done' : ''}" title="${t('mark')}"
-          onclick="toggleDone('${m.id}')">✓</button>
-        <button class="wl-del" onclick="toggleSave('${m.id}');renderWatchlist();">✕</button>
+        <a class="wl-watch" href="${rezkaUrl(m)}" target="_blank">▶ ${t('bwatch')}</a>
+        <button class="wl-chk ${done?'done':''}" onclick="toggleDone('${m.id}')">✓</button>
+        <button class="wl-del" onclick="toggleSave('${m.id}'); renderWatchlist()">✕</button>
       </div>
     </div>`;
   }).join('') + `</div>`;
 }
 
+function toggleSave(id) {
+  const idx = watchlist.indexOf(id);
+  if (idx === -1) { watchlist.push(id); toast(t('ta')); }
+  else { watchlist.splice(idx, 1); watched = watched.filter(w => w !== id); toast(t('tr')); }
+  ss(); updateBadge();
+  document.querySelectorAll(`[data-sid="${id}"]`).forEach(b => {
+    const s = watchlist.includes(id);
+    b.className = 'btn-save' + (s ? ' saved' : '');
+    b.textContent = s ? t('bsaved') : t('bs');
+  });
+  updateGridBtn(id);
+}
+
+function toggleDone(id) {
+  const idx = watched.indexOf(id);
+  if (idx === -1) watched.push(id); else watched.splice(idx, 1);
+  ss(); renderWatchlist();
+}
+
 // ════════════════════════════════════════════════════════════════
 // INIT
 // ════════════════════════════════════════════════════════════════
-lang = localStorage.getItem('cr_lang') || 'en';
 setLang(lang);
 </script>
 </body>

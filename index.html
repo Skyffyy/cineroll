@@ -24,6 +24,49 @@
   --imdb:    #f5c518;
 }
 html { scroll-behavior: smooth; }
+
+/* ── Welcome Modal ────────────────────────────────────────────── */
+#welcome-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,.75); backdrop-filter: blur(6px);
+  animation: fadeInOverlay .4s ease;
+}
+@keyframes fadeInOverlay { from { opacity:0 } to { opacity:1 } }
+#welcome-box {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+  padding: 2.5rem 2.2rem 2rem;
+  max-width: 420px; width: calc(100% - 2rem);
+  text-align: center;
+  box-shadow: 0 30px 80px rgba(0,0,0,.6);
+  animation: popIn .4s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes popIn {
+  from { opacity:0; transform: scale(.88) translateY(24px) }
+  to   { opacity:1; transform: scale(1)  translateY(0) }
+}
+#welcome-box .w-emoji { font-size: 3rem; margin-bottom: .8rem; display: block; }
+#welcome-box .w-title {
+  font-size: 1.35rem; font-weight: 700; color: var(--text);
+  margin-bottom: .75rem; line-height: 1.35;
+}
+#welcome-box .w-msg {
+  color: var(--muted2); font-size: .97rem; line-height: 1.6;
+  margin-bottom: 1.75rem;
+}
+#welcome-box .w-btn {
+  display: inline-flex; align-items: center; gap: .45rem;
+  padding: .7rem 2.2rem; border-radius: 50px;
+  background: var(--accent); color: #fff;
+  border: none; cursor: pointer;
+  font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 600;
+  transition: transform .15s, box-shadow .15s;
+  box-shadow: 0 4px 24px rgba(230,57,70,.35);
+}
+#welcome-box .w-btn:hover { transform: scale(1.04); box-shadow: 0 6px 28px rgba(230,57,70,.5); }
+
 body {
   background: var(--bg); color: var(--text);
   font-family: 'Outfit', sans-serif;
@@ -344,6 +387,19 @@ select:focus { outline: none; border-color: var(--accent); }
 </style>
 </head>
 <body>
+
+<!-- ── Welcome Modal ─────────────────────────────────────────── -->
+<div id="welcome-overlay">
+  <div id="welcome-box">
+    <span class="w-emoji">🌸</span>
+    <div class="w-title">Марта, хорошего тебе дня!</div>
+    <div class="w-msg">Меньше парься и чаще улыбайся — тебе очень идёт!</div>
+    <button class="w-btn" onclick="document.getElementById('welcome-overlay').style.display='none'">
+      Дальше →
+    </button>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <nav>
